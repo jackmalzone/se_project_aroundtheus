@@ -1,0 +1,72 @@
+.profile {
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 880px;
+  width: 100%;
+  margin: 0 0 51px;
+}
+
+.profile__image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 24px;
+  object-fit: cover;
+  background-position: center;
+}
+
+.profile__info {
+  display: grid;
+  grid-template-areas:
+    "title button"
+    "description description";
+  grid-template-columns: minmax(auto, 375px) auto;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+
+.profile__name {
+  grid-area: title;
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 1.14;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.profile__button_type_edit {
+  grid-area: button;
+  margin: 15px 0 9px 18px;
+  background: transparent url(../images/button-edit.svg) center no-repeat;
+  border: 1px solid #ffffff;
+  width: 24px;
+  height: 24px;
+}
+
+.profile__role {
+  grid-area: description;
+  margin: 0;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.21;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.profile__button_type_add {
+  background: transparent url(../images/button-add.svg) center no-repeat;
+  width: 17.04%;
+  height: 50px;
+  border: 2px solid #ffffff;
+  border-radius: 1px;
+  margin: 13px 0 14px 18.75%;
+  z-index: 0;
+}

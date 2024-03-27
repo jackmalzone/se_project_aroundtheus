@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  align-self: start;
+  max-width: 880px;
+  height: 74px;
+  margin: 0 0 40px;
+}
+
+.header__logo {
+  max-width: 173px;
+  height: 33px;
+}
