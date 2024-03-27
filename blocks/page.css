@@ -1,10 +1,10 @@
 .page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: #000000;
   color: #ffffff;
   min-height: 100vh;
-  padding: 45px 15.625% 60px;
+}
+
+@media screen and (max-width: 320px) {
+  .page {
+  }
 }

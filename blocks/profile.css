@@ -1,3 +1,12 @@
+@keyframes bounce {
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .profile {
   color: #ffffff;
   display: flex;
@@ -5,7 +14,7 @@
   justify-content: space-between;
   max-width: 880px;
   width: 100%;
-  margin: 0 0 51px;
+  margin: 0 auto 51px;
 }
 
 .profile__image {
@@ -40,6 +49,10 @@
   overflow: hidden;
 }
 
+.profile__button {
+  transition: transform 0.3s linear;
+}
+
 .profile__button_type_edit {
   grid-area: button;
   margin: 15px 0 9px 18px;
@@ -47,6 +60,7 @@
   border: 1px solid #ffffff;
   width: 24px;
   height: 24px;
+  transition: background 0.2s linear;
 }
 
 .profile__role {
@@ -69,4 +83,71 @@
   border-radius: 1px;
   margin: 13px 0 14px 18.75%;
   z-index: 0;
+  transition: background 0.2s linear;
+}
+
+.profile__button:focus {
+  animation: bounce 0.4s linear;
+}
+
+.profile__button_type_add:hover {
+  background: transparent url(../images//button-add-hover.svg) center no-repeat;
+}
+
+.profile__button_type_edit:hover {
+  background: transparent url(../images/button-edit-hover.svg) center no-repeat;
+}
+
+@media screen and (max-width: 320px) {
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 19px;
+    margin: 42px 0 36px;
+    width: 282px;
+    height: 286px;
+  }
+
+  .profile__image {
+    width: 120px;
+    height: 120px;
+    margin: 0;
+  }
+  .profile__info {
+    width: 100%;
+    margin: 30px 0 36px;
+    text-align: center;
+    align-items: baseline;
+  }
+
+  .profile__name {
+    font-size: 22px;
+    line-height: 1.21;
+    margin: 0 0 14px;
+  }
+
+  .profile__button {
+    margin: 0;
+    padding: 0;
+  }
+
+  .profile__button_type_edit {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    margin: ;
+  }
+
+  .profile__role {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.21;
+    margin: 0;
+  }
+
+  .profile__button_type_add {
+    width: 100%;
+    height: 50px;
+  }
 }
