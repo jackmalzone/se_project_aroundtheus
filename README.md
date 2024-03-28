@@ -43,7 +43,11 @@ Key responsiveness features include:
 - **Flexible Images and Grids:** All images and grid-based layouts scale and resize to maintain their aspect ratio and fit within their respective containers.
 - **Adaptive Units:** The use of `rem`, `vw`, and `vh` units, along with percentage-based widths, ensures that padding, margins, and element sizes adjust to the screen.
 
-![Monitor Size](.images/desktop-1280.png)
+![Mobile Size](./images/mobileS-320p.png)
+
+![Tablet Size](./images/tablet-size.png)
+
+![Monitor Size](./images/desktop-1280p.png)
 
 ## Technologies Used
 
