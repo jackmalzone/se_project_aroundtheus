@@ -13,7 +13,24 @@
   height: 33px;
 }
 
-@media screen and (max-width: 320px) {
+@media all and (max-width: 917px) {
+  .header {
+    max-width: 581px;
+  }
+}
+
+@media all and (max-width: 618px) {
+  .header {
+    max-width: 282px;
+  }
+
+  .header__logo {
+    max-width: 148px;
+    height: 28px;
+  }
+}
+
+@media all and (max-width: 320px) {
   .header {
     width: 100%;
     margin: 0;

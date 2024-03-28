@@ -12,3 +12,15 @@
 .footer__text {
   margin: 0;
 }
+
+@media all and (max-width: 320px) {
+  .footer {
+    margin: 48px 0 0;
+    padding: 0 19px 36px;
+  }
+
+  .footer__text {
+    font-size: 14px;
+    line-height: 1.21;
+  }
+}

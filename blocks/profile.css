@@ -24,6 +24,7 @@
   margin-right: 24px;
   object-fit: cover;
   background-position: center;
+  margin: 0;
 }
 
 .profile__info {
@@ -98,13 +99,94 @@
   background: transparent url(../images/button-edit-hover.svg) center no-repeat;
 }
 
-@media screen and (max-width: 320px) {
+@media all and (max-width: 917px) {
+  .profile {
+    max-width: 581px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .profile__info {
+    margin: 30px 0 36px;
+    text-align: center;
+    align-items: baseline;
+    position: relative;
+  }
+
+  .profile__name {
+    font-size: 35px;
+    line-height: 1.21;
+    margin: 0 0 14px;
+  }
+
+  .profile__button {
+    margin: 0;
+    padding: 0;
+  }
+
+  .profile__role {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.21;
+    margin: 0;
+  }
+
+  .profile__button_type_edit {
+    width: 21x;
+    height: 21px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 12px;
+    right: 0px;
+  }
+
+  .profile__button_type_add {
+    width: 150px;
+    height: 50px;
+  }
+}
+
+@media all and (max-width: 618px) {
+  .profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 19px;
+    margin: 42px auto 36px;
+    max-width: 282px;
+  }
+
+  /* .profile__info {
+    text-align: center;
+    align-items: baseline;
+    position: relative;
+  } */
+
+  .profile__name {
+    font-size: 24px;
+    line-height: 1.21;
+    margin: 0 0 14px;
+  }
+
+  .profile__button_type_edit {
+    position: absolute;
+    top: 6px;
+    right: -15px;
+  }
+}
+
+@media all and (max-width: 320px) {
   .profile {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 19px;
-    margin: 42px 0 36px;
+    margin: 42px auto 36px;
     width: 282px;
     height: 286px;
   }
@@ -114,11 +196,13 @@
     height: 120px;
     margin: 0;
   }
+
   .profile__info {
     width: 100%;
     margin: 30px 0 36px;
     text-align: center;
     align-items: baseline;
+    position: relative;
   }
 
   .profile__name {
@@ -136,7 +220,10 @@
     width: 18px;
     height: 18px;
     padding: 0;
-    margin: ;
+    margin: 0;
+    position: absolute;
+    top: 4px;
+    right: 0px;
   }
 
   .profile__role {

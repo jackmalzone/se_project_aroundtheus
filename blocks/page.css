@@ -4,7 +4,15 @@
   min-height: 100vh;
 }
 
-@media screen and (max-width: 320px) {
+@media all and (max-width: 924px) {
   .page {
+    padding: 0 19px;
+    max-width: calc(100% - 19px);
+  }
+}
+
+@media all and (max-width: 320px) {
+  .page {
+    min-width: 320px;
   }
 }
