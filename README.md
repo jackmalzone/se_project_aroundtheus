@@ -17,6 +17,10 @@
 - Acknowledgements
 - Contact
 
+## Project Presentation Video
+
+[Project Presentation Video](https://drive.google.com/file/d/128MIUpiH8dpSutuNqlz0rH96rTX0M1vG/view?usp=drive_link)
+
 ## Intro
 
 "Around The U.S." is an interactive web platform that invites users to explore and share the breathtaking landscapes of America. It allows users to post photos, engage with images of scenic locations, like their favorites, and personalize their profiles.
