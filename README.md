@@ -2,6 +2,8 @@
 
 ![Around The U.S. Logo](./images/logo_aroundtheus.svg)
 
+[Github Pages Link](https://jackmalzone.github.io/se_project_aroundtheus/)
+
 # Overview
 
 - Intro
