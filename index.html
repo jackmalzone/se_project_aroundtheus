@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-	<meta charset=“UTF-8”>
+	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="author" content="Jack Malzone">
 	<meta
@@ -12,7 +12,7 @@
       content="travel photography, United States landscapes, user profiles, photo sharing, interactive platform, scenic views, community engagement, travel community, natural wonders, photo collection, outdoor photography"
     />
 	<title>Around The U.S.</title>
-	<link rel="stylesheet" href="./pages/index.css" />
+	<link rel="stylesheet" href="./pages/index.css"  />
     <link rel="icon" href="./favicon.ico" />
 </head>
 <body>
@@ -20,60 +20,62 @@
 		<header class="header">
             <img src="./images/logo_aroundtheus.svg" alt="Around The U.S. logo" class="header__logo">
         </header>
-		<section class="profile">
-            <img src="./images/jacques-cousteau.jpg" alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up." class="profile__image">
-            <div class="profile__info">
-                <h1 class="profile__name">Jacques Cousteau</h1>
-                <button class="profile__button profile__button_type_edit" aria-label="Edit profile"></button>
-                <p class="profile__role">Explorer</p>
-            </div>
-            <button class="profile__button profile__button_type_add" aria-label="Add new content"></button>
-        </section>
 		<main class="content">
-            <div class="content__cards cards">
-                <figure class="card">
-                    <img src="./images/yosemite.jpg" alt="Sunset view of Yosemite Valley with El Capitan visible, river flowing in the foreground surrounded by dense pine trees." class="card__image"/>
-                    <div class="card__footer">
-                        <figcaption class="card__caption">Yosemite Valley</figcaption>
-                        <button class="card__button"></button>
-                    </div>
-                </figure>
-                <figure class="card">
-                    <img src="./images/lake-louise.jpg" alt="Calm waters of Lake Louise reflecting the surrounding mountains under a soft blue sky." class="card__image"/>
-                    <div class="card__footer">
-                        <figcaption class="card__caption">Lake Louise</figcaption>
-                        <button class="card__button"></button>
-                    </div>
-                </figure>
-                <figure class="card">
-                    <img src="./images/bald-mountains.jpg" alt="Sunburst peaking over the silhouette of the Bald Mountains at sunrise, casting a warm glow across the hazy, layered ridges." class="card__image">
-                    <div class="card__footer">
-                        <figcaption class="card__caption">Bald Mountains</figcaption>
-                        <button class="card__button"></button>
-                    </div>
-                </figure>
-                <figure class="card">
-                    <img src="./images/latemar.jpg" alt="Starry night sky over the jagged peaks of Latemar mountain range with remnants of snow highlighting its rugged terrain." class="card__image"/>
-                    <div class="card__footer">
-                        <figcaption class="card__caption">Latemar</figcaption>
-                        <button class="card__button"></button>
-                    </div>
-                </figure>
-                <figure class="card">
-                    <img src="./images/vanoise.jpg" alt="Twilight hues casting a soft glow on the peaks of Vanoise National Park, reflected in the still waters of a mountain lake." class="card__image"/>
-                    <div class="card__footer">
-                        <figcaption class="card__caption">Vanoise National Park</figcaption>
-                        <button class="card__button"></button>
-                    </div>
-                </figure>
-                <figure class="card">
-                    <img src="./images/lago.jpg" alt="Wooden boats moored at a dock on Lago di Braies with towering Dolomite mountains reflecting in the crystal-clear lake water." class="card__image"/>
-                    <div class="card__footer">
-                        <figcaption class="card__caption">Lago di Braise</figcaption>
-                        <button class="card__button"></button>
-                    </div>
-                </figure>
-            </div>
+            <section class="profile">
+                <img src="./images/jacques-cousteau.jpg" alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up." class="profile__image">
+                <div class="profile__info">
+                    <h1 class="profile__name">Jacques Cousteau</h1>
+                    <button class="profile__button profile__button_type_edit" type="button" aria-label="Edit profile"></button>
+                    <p class="profile__role">Explorer</p>
+                </div>
+                <button class="profile__button profile__button_type_add" type="button" aria-label="Add new content"></button>
+            </section>
+            <section class="cards">
+                <ul class="cards__list">
+                    <li class="card">
+                        <img src="./images/yosemite.jpg" alt="Sunset view of Yosemite Valley with El Capitan visible, river flowing in the foreground surrounded by dense pine trees." class="card__image"/>
+                        <div class="card__footer">
+                            <h2 class="card__caption">Yosemite Valley</h2>
+                            <button class="card__button" type="button" aria-label="Like Post"></button>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <img src="./images/lake-louise.jpg" alt="Calm waters of Lake Louise reflecting the surrounding mountains under a soft blue sky." class="card__image"/>
+                        <div class="card__footer">
+                            <h2 class="card__caption">Lake Louise</h2>
+                            <button class="card__button" type="button" aria-label="Like Post"></button>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <img src="./images/bald-mountains.jpg" alt="Sunburst peaking over the silhouette of the Bald Mountains at sunrise, casting a warm glow across the hazy, layered ridges." class="card__image">
+                        <div class="card__footer">
+                            <h2 class="card__caption">Bald Mountains</h2>
+                            <button class="card__button" type="button" aria-label="Like Post"></button>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <img src="./images/latemar.jpg" alt="Starry night sky over the jagged peaks of Latemar mountain range with remnants of snow highlighting its rugged terrain." class="card__image"/>
+                        <div class="card__footer">
+                            <h2 class="card__caption">Latemar</h2>
+                            <button class="card__button" type="button" aria-label="Like Post"></button>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <img src="./images/vanoise.jpg" alt="Twilight hues casting a soft glow on the peaks of Vanoise National Park, reflected in the still waters of a mountain lake." class="card__image"/>
+                        <div class="card__footer">
+                            <h2 class="card__caption">Vanoise National Park</h2>
+                            <button class="card__button" type="button" aria-label="Like Post"></button>
+                        </div>
+                    </li>
+                    <li class="card">
+                        <img src="./images/lago.jpg" alt="Wooden boats moored at a dock on Lago di Braies with towering Dolomite mountains reflecting in the crystal-clear lake water." class="card__image"/>
+                        <div class="card__footer">
+                            <h2 class="card__caption">Lago di Braise</h2>
+                            <button class="card__button" type="button" aria-label="Like Post"></button>
+                        </div>
+                    </li>
+                </ul>
+            </section>
         </main>
 		<footer class="footer">
             <p class="footer__text">© 2024 Around The U.S.</p>

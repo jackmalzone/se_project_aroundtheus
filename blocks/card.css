@@ -7,18 +7,6 @@
   }
 }
 
-.cards__list {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: repeat(auto-fit, 282px);
-  /* grid-auto-flow: rows; */
-  grid-gap: 20px 17px;
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 0;
-}
-
 .card {
   display: flex;
   flex-direction: column;
@@ -72,7 +60,7 @@
   margin-right: 20px;
   /* margin-left: 28px; */
   transition: background-color 0.2s linear, transform 0.2s linear,
-    cursor 0.2s linear, background 0.2s linear, filter 0.2s linear;
+    cursor 0.2s linear, opacity 0.2s linear, filter 0.2s linear;
 }
 
 .card:hover {
@@ -80,7 +68,7 @@
 }
 
 .card__button:hover {
-  background: transparent url(../images/button-heart-hover.svg) center no-repeat;
+  opacity: 0.5;
   transform: scale(1.1);
   cursor: pointer;
   filter: hue-rotate(90deg);
