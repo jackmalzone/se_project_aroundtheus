@@ -48,6 +48,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 350px;
 }
 
 .profile__button {
@@ -67,6 +68,7 @@
 .profile__role {
   grid-area: description;
   margin: 0;
+  max-width: 373px;
   font-family: "Inter", Arial, sans-serif;
   font-size: 18px;
   font-weight: 400;
@@ -184,7 +186,6 @@
   .profile__button_type_edit {
     width: 18px;
     height: 18px;
-    position: absolute;
     top: 4px;
     right: 0px;
   }
