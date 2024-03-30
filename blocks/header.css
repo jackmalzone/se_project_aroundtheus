@@ -36,11 +36,15 @@
     margin: 0;
     padding: 28px 0 0;
     height: 56px;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   .header__logo {
     max-width: 126px;
     height: 24px;
     margin-left: 26px;
+    margin-bottom: 32px;
+    padding-bottom: 0;
   }
 }
