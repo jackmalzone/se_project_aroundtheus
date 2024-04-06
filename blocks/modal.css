@@ -1,0 +1,110 @@
+.modal {
+  /* display: none; */
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+/* .modal_opened {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+.modal__container {
+  display: flex;
+  flex-direction: column;
+  /* flex-grow: 0.1564; */
+  width: 430px;
+  max-width: calc(100% - 19px);
+  position: relative;
+  background-color: #ffffff;
+  padding: 36px;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.modal__close {
+  background: center / contain no-repeat url("../images/button-close.svg");
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: calc(100% + 5px);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.modal__heading {
+  font-size: 24px;
+  line-height: 1.2;
+  color: #000000;
+  margin: 0 0 54px;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 900;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+}
+
+.modal__input {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 400;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 0 0 12px;
+}
+
+.modal__input:nth-last-of-type(1) {
+  margin: 29px 0 48px;
+}
+
+.modal__button {
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 400;
+  color: #ffffff;
+  background-color: #000000;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  min-height: 50px;
+}
+
+@media all and (max-width: 617px) {
+  .modal__container {
+    padding: 25px 22px;
+    max-width: 282px;
+  }
+
+  .modal__heading {
+    margin-bottom: 75px;
+  }
+
+  .modal__close {
+    width: 26px;
+    height: 26px;
+    right: 0;
+    bottom: calc(100% + 13px);
+    left: auto;
+  }
+}
