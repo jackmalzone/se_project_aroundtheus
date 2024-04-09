@@ -36,6 +36,7 @@
             <h1 class="profile__name">Jacques Cousteau</h1>
             <button
               class="profile__button profile__button_type_edit"
+              id="profile-edit-button"
               type="button"
               aria-label="Edit profile"
             ></button>
@@ -147,9 +148,9 @@
       </footer>
     </div>
 
-    <div class="modal">
+    <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button class="modal__close"></button>
+        <button class="modal__close" id="profile-edit-button-close"></button>
         <p class="modal__heading">Edit Profile</p>
         <form class="modal__form">
           <input
