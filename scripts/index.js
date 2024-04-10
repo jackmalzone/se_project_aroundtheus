@@ -1,3 +1,5 @@
+console.log("Hello, World!");
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -31,7 +33,7 @@ const initialCards = [
   },
 ];
 
-console.log(initialCards);
+// console.log(initialCards);
 
 // ELEMENTS
 
@@ -67,17 +69,13 @@ function handleFormSubmit(evt) {
 }
 
 function getCardElement(cardData) {
-  // clone the card template, store as cardElement
   const cardElement = cardTemplate.cloneNode(true);
-  // set the card image and caption
   const cardImage = cardElement.querySelector(".card__image");
   const cardCaption = cardElement.querySelector(".card__caption");
   cardImage.src = cardData.link;
   cardImage.alt = cardData.alt;
   cardCaption.textContent = cardData.name;
-  // return the ready HTML element with filled in data
-
-  // document.querySelector(".cards").appendChild(cardElement);
+  console.log(cardData);
   return cardElement;
 }
 

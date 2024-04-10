@@ -45,6 +45,11 @@
   cursor: pointer;
   margin: 0;
   box-sizing: border-box;
+  transition: transform 0.2s linear;
+}
+
+.modal__close:hover {
+  transform: scale(1.02);
 }
 
 .modal__heading {
@@ -89,6 +94,11 @@
   cursor: pointer;
   min-height: 50px;
   margin-top: 45px;
+  transition: transform 0.2s linear;
+}
+
+.modal__button:hover {
+  transform: scale(1.01);
 }
 
 @media all and (max-width: 617px) {
