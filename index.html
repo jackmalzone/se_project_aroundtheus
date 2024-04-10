@@ -33,14 +33,16 @@
             class="profile__image"
           />
           <div class="profile__info">
-            <h1 class="profile__name">Jacques Cousteau</h1>
+            <h1 class="profile__name" id="profile-name">Jacques Cousteau</h1>
             <button
               class="profile__button profile__button_type_edit"
               id="profile-edit-button"
               type="button"
               aria-label="Edit profile"
             ></button>
-            <p class="profile__role">Explorer</p>
+            <p class="profile__description" id="profile-description">
+              Explorer
+            </p>
           </div>
           <button
             class="profile__button profile__button_type_add"
@@ -49,7 +51,7 @@
           ></button>
         </section>
         <section class="cards">
-          <ul class="cards__list">
+          <!-- <ul class="cards__list">
             <li class="card">
               <img
                 src="./images/yosemite.jpg"
@@ -140,7 +142,7 @@
                 ></button>
               </div>
             </li>
-          </ul>
+          </ul> -->
         </section>
       </main>
       <footer class="footer">
@@ -150,25 +152,46 @@
 
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
-        <button class="modal__close" id="profile-edit-button-close"></button>
+        <button class="modal__close" id="modal-button-close"></button>
         <p class="modal__heading">Edit Profile</p>
         <form class="modal__form">
           <input
             type="text"
             name="title"
             class="modal__input"
+            id="modal-input-name"
             placeholder="Name"
           />
           <input
             type="text"
             name="description"
             class="modal__input"
+            id="modal-input-description"
             placeholder="Description"
           />
-          <button class="modal__button" type="submit">Save</button>
+          <button class="modal__button" id="modal-button-save" type="submit">
+            Save
+          </button>
         </form>
       </div>
     </div>
+
+    <template id="card-template">
+      <li class="card">
+        <img
+          src=""
+          alt=""
+          class="card__image"
+        />
+        <div class="card__footer">
+          <h2 class="card__caption"></h2>
+          <button
+            class="card__button"
+            type="button"
+            aria-label="Like Post"
+          ></button>
+        </div>
+      </li>
 
     <script src="./scripts/index.js"></script>
   </body>

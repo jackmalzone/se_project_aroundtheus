@@ -65,7 +65,7 @@
   transition: background 0.2s linear;
 }
 
-.profile__role {
+.profile__description {
   grid-area: description;
   margin: 0;
   max-width: 373px;
@@ -127,7 +127,7 @@
     padding: 0;
   }
 
-  .profile__role {
+  .profile__description {
     font-size: 16px;
   }
 
@@ -190,7 +190,7 @@
     right: 0px;
   }
 
-  .profile__role {
+  .profile__description {
     font-size: 14px;
     margin: 0;
   }

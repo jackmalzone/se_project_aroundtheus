@@ -10,13 +10,14 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   margin: 0;
-  display: none;
-}
-
-.modal_opened {
   display: flex;
   align-items: center;
   justify-content: center;
+  visibility: hidden;
+}
+
+.modal_opened {
+  visibility: visible;
 }
 
 .modal__container {
