@@ -94,10 +94,12 @@
 }
 
 .profile__button_type_add:hover {
+  cursor: pointer;
   opacity: 0.6;
 }
 
 .profile__button_type_edit:hover {
+  cursor: pointer;
   opacity: 0.6;
 }
 

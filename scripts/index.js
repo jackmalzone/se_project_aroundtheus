@@ -1,5 +1,3 @@
-console.log("Hello, World!");
-
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -65,7 +63,7 @@ function handleFormSubmit(evt) {
   profileName.textContent = profileInputName.value;
   profileDescription.textContent = profileInputDescription.value;
   closeModal();
-  console.log("Form submitted, no refresh!");
+  // console.log("Form submitted, no refresh!");
 }
 
 function getCardElement(cardData) {
@@ -75,7 +73,7 @@ function getCardElement(cardData) {
   cardImage.src = cardData.link;
   cardImage.alt = cardData.alt;
   cardCaption.textContent = cardData.name;
-  console.log(cardData);
+  // console.log(cardData);
   return cardElement;
 }
 
