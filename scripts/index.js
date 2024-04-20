@@ -35,12 +35,20 @@ const initialCards = [
 
 // ELEMENTS
 
-const profileEditButton = document.querySelector("#profile-edit-button");
+// Wrappers
 const profileEditModal = document.querySelector("#profile-edit-modal");
+const profileAddModal = document.querySelector("#profile-add-modal");
+
+// Buttons
+const profileEditButton = document.querySelector("#profile-edit-button");
 const profileModalButtonClose = document.querySelector("#modal-button-close");
 const profileModalButtonSave = document.querySelector("#modal-button-save");
+
+// Profile Data
 const profileName = document.querySelector("#profile-name");
 const profileDescription = document.querySelector("#profile-description");
+
+// Form Data
 const profileInputName = document.querySelector("#modal-input-name");
 const profileInputDescription = document.querySelector(
   "#modal-input-description"
@@ -49,6 +57,7 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 const cardList = document.querySelector(".cards__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
+// const modalTemplate = document.querySelector("#modal-template").content;
 
 // FUNCTIONS
 
@@ -76,6 +85,15 @@ function getCardElement(cardData) {
   // console.log(cardData);
   return cardElement;
 }
+
+// function getModalElement(modalImageForm) {
+//   let modalElement = modalTemplate.cloneNode(true);
+//   const modalInputName = modalElement.querySelector("#modal-input-one");
+//   const modalInputURL = modalElement.querySelector("#modal-input-two");
+//   modalInputName.value = modalImageForm.textContent;
+//   modalInputURL.value = modalImageForm.textContent;
+//   return modalElement;
+// }
 
 // EVENT LISTENERS
 
