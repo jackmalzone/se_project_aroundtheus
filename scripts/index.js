@@ -41,8 +41,14 @@ const profileAddModal = document.querySelector("#profile-add-modal");
 
 // Buttons
 const profileEditButton = document.querySelector("#profile-edit-button");
-const profileModalButtonClose = document.querySelector("#modal-button-close");
+const profileEditButtonClose = profileEditModal.querySelector(
+  "#modal-button-close"
+);
+const profileAddButtonClose = profileAddModal.querySelector(
+  "#modal-button-close"
+);
 const profileModalButtonSave = document.querySelector("#modal-button-save");
+const profileAddButton = document.querySelector("#profile-add-button");
 
 // Profile Data
 const profileName = document.querySelector("#profile-name");
@@ -54,6 +60,7 @@ const profileInputDescription = document.querySelector(
   "#modal-input-description"
 );
 const profileEditForm = profileEditModal.querySelector(".modal__form");
+const profileAddForm = profileAddModal.querySelector(".modal__form");
 const cardList = document.querySelector(".cards__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -61,8 +68,12 @@ const cardTemplate =
 
 // FUNCTIONS
 
-function closeModal() {
-  profileEditModal.classList.remove("modal_opened");
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+}
+
+function openModal(modal) {
+  modal.classList.add("modal_opened");
 }
 
 // EVENT HANDLERS
@@ -100,12 +111,20 @@ function getCardElement(cardData) {
 profileEditButton.addEventListener("click", () => {
   profileInputName.value = profileName.textContent;
   profileInputDescription.value = profileDescription.textContent;
-  profileEditModal.classList.add("modal_opened");
+  openModal(profileEditModal);
 });
 
-profileModalButtonClose.addEventListener("click", closeModal);
-
+// profileEditButton.addEventListener("click", () => openModal(profileEditModal);
+profileEditButtonClose.addEventListener("click", () =>
+  closeModal(profileEditModal)
+);
 profileEditForm.addEventListener("submit", handleFormSubmit);
+
+profileAddButton.addEventListener("click", () => openModal(profileAddModal));
+profileAddButtonClose.addEventListener("click", () =>
+  closeModal(profileAddModal)
+);
+profileAddForm;
 
 initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);
