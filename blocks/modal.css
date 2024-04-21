@@ -33,6 +33,21 @@
   box-sizing: border-box;
 }
 
+.modal__container_type_preview {
+  width: auto;
+  height: auto;
+  max-width: 75vw;
+  max-height: 75vh;
+  background: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  padding: 0;
+  margin: 0;
+}
+
 .modal__close {
   background: center / contain no-repeat url("../images/button-close.svg");
   background-color: transparent;
@@ -59,6 +74,17 @@
   margin: 0 0 54px;
   font-family: "Inter", Arial, sans-serif;
   font-weight: 900;
+  margin-top: 10px;
+}
+
+.modal__heading_type_preview {
+  color: #ffffff;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.2;
+  max-width: 291px;
+  width: 100%;
 }
 
 .modal__form {
