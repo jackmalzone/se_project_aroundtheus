@@ -14,10 +14,14 @@
   align-items: center;
   justify-content: center;
   visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s ease;
 }
 
 .modal_opened {
+  opacity: 1;
   visibility: visible;
+  transition: opacity 0.5s ease;
 }
 
 .modal__container {
@@ -61,10 +65,6 @@
   margin: 0;
   box-sizing: border-box;
   transition: transform 0.2s linear;
-}
-
-.modal__close:hover {
-  transform: scale(1.02);
 }
 
 .modal__heading {
@@ -125,6 +125,14 @@
 
 .modal__button:hover {
   transform: scale(1.01);
+}
+
+.modal__close:hover {
+  transform: scale(1.02);
+}
+
+.modal__close:focus {
+  opacity: 0;
 }
 
 .sr-only {
