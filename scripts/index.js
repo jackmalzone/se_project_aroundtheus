@@ -38,6 +38,7 @@ const initialCards = [
 // Wrappers
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileAddModal = document.querySelector("#profile-add-modal");
+const profilePreviewModal = document.querySelector("#profile-preview-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const profileAddForm = profileAddModal.querySelector(".modal__form");
 const cardList = document.querySelector(".cards__list");
@@ -52,6 +53,10 @@ const profileAddButtonClose = profileAddModal.querySelector(
 );
 const profileModalButtonSave = document.querySelector("#modal-button-save");
 const profileAddButton = document.querySelector("#profile-add-button");
+
+const profilePreviewButtonClose = profilePreviewModal.querySelector(
+  "#modal-button-close"
+);
 
 // Profile Data
 const profileName = document.querySelector("#profile-name");
@@ -106,6 +111,30 @@ function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
   const cardCaption = cardElement.querySelector(".card__caption");
+  const likeButton = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
+  const cardPreviewClose = cardElement.querySelector(".modal__close");
+
+  const cardPreviewImage = cardElement.querySelector(".modal__preview");
+  const cardPreviewCaption = cardElement.querySelector(".modal__heading");
+
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__like-button_active");
+  });
+  deleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
+  cardImage.addEventListener("click", () => {
+    openModal(profilePreviewModal);
+  });
+  // cardPreviewClose.addEventListener("click", () => {
+  //   profilePreviewModal.classList.toggle("modal_opened");
+  // });
+
+  // cardPreviewImage.src = cardData.link;
+  // cardPreviewImage.alt = cardData.alt;
+  // cardPreviewCaption.textContent = cardData.place;
+
   cardImage.src = cardData.link;
   cardImage.alt = cardData.alt;
   cardCaption.textContent = cardData.place;
@@ -140,4 +169,10 @@ profileAddButtonClose.addEventListener("click", () =>
 );
 profileAddForm.addEventListener("submit", handleAddFormSubmit);
 
+profilePreviewButtonClose.addEventListener("click", () =>
+  closeModal(profilePreviewModal)
+);
+
 initialCards.forEach((cardData) => renderCard(cardData, cardList));
+
+const profileLikeButton = document.querySelectorAll("#card-like-button");
