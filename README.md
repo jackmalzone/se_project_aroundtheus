@@ -48,6 +48,25 @@ Key responsiveness features include:
 - **Media Queries:** CSS media queries are used to apply different styling rules based on the viewport size.
 - **Flexible Images and Grids:** All images and grid-based layouts scale and resize to maintain their aspect ratio and fit within their respective containers.
 - **Adaptive Units:** The use of `rem`, `vw`, and `vh` units, along with percentage-based widths, ensures that padding, margins, and element sizes adjust to the screen.
+- **Real-time Interaction**: Implement interactive features such as liking a photo and deleting a card, showing immediate feedback in the user interface without page reloads.
+
+## JavaScript Features
+
+In "Around The U.S.", I leverage the power of JavaScript ES6 to create an immersive and interactive experience. Here are some of the core JavaScript features used:
+
+- **Dynamic Content Creation**: Using `document.createElement()` and template literals, build and insert content into the DOM, populating the page with user-generated cards.
+
+- **Modular Functionality**: Organized the code into reusable functions for tasks like opening and closing modals, rendering cards, and handling form submissions.
+
+- **Event Handling**: Added event listeners to buttons and other elements to handle clicks, form submissions, and other user interactions, such as liking and deleting photos, and ensuring a responsive and intuitive experience.
+
+- **DOM Manipulation**: Dynamically update the DOM in response to user actions, like updating profile information, liking photos, and removing cards from the view.
+
+- **Template Cloning**: Utilize `document.importNode()` to clone template elements which allows for efficient mass-production of DOM elements from a single source.
+
+- **Modal Management**: Control the opening and closing of modals, providing an engaging user interface without navigating away from the main page.
+
+The JavaScript codebase is designed to be scalable and maintainable, with a clear structure that separates concerns and allows for future enhancements.
 
 ![Mobile Size](./images/mobileS-320p.png)
 
@@ -57,16 +76,18 @@ Key responsiveness features include:
 
 ## Technologies Used
 
-- HTML5
-- CSS3
-- Figma
+- HTML5 for structured web content
+- CSS3 for modern web styling
+- JavaScript (ES6, DOM manipulation, event handling, and form validation)
+- Git and GitHub for version control
+- Figma for design mockups
 
 ## Setup
 
-To view the project:
+To view the project on your local machine:
 
-1. Clone the repository to your local machine.
-2. Open the `index.html` file in a web browser of your choice.
+1. Clone the public repository using `git clone`.
+2. Open the `index.html` file in a modern web browser to see the project live.
 
 ## Contributing
 
@@ -97,8 +118,8 @@ This project is licensed under some sort of license maybe ?
 
 ## Acknowledgements
 
-- Thanks to TripleTen for another great challenge, and most importanly, thank you to Jacques Cousteau for the inspiration behind this project.
-- All images are credited to their respective photographers, perhaps ?
+- Thanks to TripleTen for another great challenge, and most importantly, thank you to Jacques Cousteau for the inspiration behind this project.
+- All images are credited to their respective photographers.
 
 ## Contact
 
