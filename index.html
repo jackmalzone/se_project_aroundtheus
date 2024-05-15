@@ -83,14 +83,22 @@
             class="modal__input"
             id="modal-input-name"
             placeholder="Name"
+            minlength="2"
+            maxlength="40"
+            required
           />
+          <span class="modal__error" id="modal-error-name"></span>
           <input
             type="text"
             name="description"
             class="modal__input"
             id="modal-input-description"
             placeholder="Description"
+            minlength="2"
+            maxlength="200"
+            required
           />
+          <span class="modal__error" id="modal-error-description"></span>
           <button class="modal__button" id="modal-button-save" type="submit">
             Save
             <span class="sr-only">Save Profile</span>
@@ -213,6 +221,9 @@
       </div>
     </template> -->
 
-    <script src="./scripts/index.js"></script>
+    <!-- JAVASCRIPT -->
+
+    <script defer src="./scripts/index.js"></script>
+    <script defer src="./scripts/validation.js"></script>
   </body>
 </html>
