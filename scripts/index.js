@@ -74,7 +74,6 @@ const profileInputLink = profileAddForm.querySelector("#modal-input-link");
 
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
-// const modalTemplate = document.querySelector("#modal-template").content;
 
 // FUNCTIONS
 
@@ -97,7 +96,6 @@ function handleEditFormSubmit(evt) {
   profileName.textContent = profileInputName.value;
   profileDescription.textContent = profileInputDescription.value;
   closeModal(profileEditModal);
-  // console.log("Form submitted, no refresh!");
 }
 
 function handleAddFormSubmit(evt) {
@@ -106,7 +104,6 @@ function handleAddFormSubmit(evt) {
   const link = profileInputLink.value;
   renderCard({ place, link }, cardList);
   closeModal(profileAddModal);
-  // console.log("Form submitted, no refresh!");
 }
 
 function showPreview(cardData) {
@@ -131,31 +128,13 @@ function getCardElement(cardData) {
   });
   cardImage.addEventListener("click", () => {
     showPreview(cardData);
-    // openModal(profilePreviewModal);
   });
-  // cardPreviewClose.addEventListener("click", () => {
-  //   profilePreviewModal.classList.toggle("modal_opened");
-  // });
-
-  // cardPreviewImage.src = cardData.link;
-  // cardPreviewImage.alt = cardData.alt;
-  // cardPreviewCaption.textContent = cardData.place;
 
   cardImage.src = cardData.link;
   cardImage.alt = cardData.alt;
   cardCaption.textContent = cardData.place;
-  // console.log(cardData);
   return cardElement;
 }
-
-// function getModalElement(modalImageForm) {
-//   let modalElement = modalTemplate.cloneNode(true);
-//   const modalInputName = modalElement.querySelector("#modal-input-one");
-//   const modalInputURL = modalElement.querySelector("#modal-input-two");
-//   modalInputName.value = modalImageForm.textContent;
-//   modalInputURL.value = modalImageForm.textContent;
-//   return modalElement;
-// }
 
 // EVENT LISTENERS
 
