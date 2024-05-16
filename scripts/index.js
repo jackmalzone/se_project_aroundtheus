@@ -179,6 +179,24 @@ profilePreviewButtonClose.addEventListener("click", () =>
   closeModal(profilePreviewModal)
 );
 
+// close modal when clicking outside of it
+document.querySelectorAll(".modal-overlay").forEach((modal) => {
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal(modal);
+    }
+  });
+});
+
+// close modal when pressing the Escape key
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    document.querySelectorAll(".modal_opened").forEach((modal) => {
+      closeModal(modal);
+    });
+  }
+});
+
 initialCards.forEach((cardData) => renderCard(cardData, cardList));
 
 const profileLikeButton = document.querySelectorAll("#card-like-button");

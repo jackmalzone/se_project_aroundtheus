@@ -133,6 +133,17 @@
   padding: 0;
 }
 
+.modal__submit-button_inactive {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal__input_type_error {
+  border-bottom: 1px solid #ff0000;
+}
+
+.modal__input-error_active {
+}
+
 .modal__button:hover {
   transform: scale(1.01);
 }

@@ -65,7 +65,7 @@
     </div>
 
     <!-- Edit Modal -->
-    <div class="modal" id="profile-edit-modal">
+    <div class="modal modal-overlay" id="profile-edit-modal">
       <div class="modal__container">
         <button
           type="button"
@@ -108,7 +108,7 @@
     </div>
 
     <!-- Add Modal -->
-    <div class="modal" id="profile-add-modal">
+    <div class="modal modal-overlay" id="profile-add-modal">
       <div class="modal__container">
         <button
           type="button"
@@ -126,14 +126,20 @@
             class="modal__input"
             id="modal-input-place"
             placeholder="Place"
+            minlength="1"
+            maxlength="30"
+            required
           />
+          <span class="modal__error" id="modal-input-place-error"></span>
           <input
-            type="text"
+            type="url"
             name="link"
             class="modal__input"
             id="modal-input-link"
             placeholder="Image URL"
+            required
           />
+          <span class="modal__error" id="modal-input-link-error"></span>
           <button class="modal__button" id="modal-button-save" type="submit">
             Save
             <span class="sr-only">Save and upload post</span>

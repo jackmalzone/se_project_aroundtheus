@@ -19,7 +19,7 @@ function hideInputError(
   const errorMessageElement = formElement.querySelector(
     `#${inputElement.id}-error`
   );
-  inputElement.classList.add(inputErrorClass);
+  inputElement.classList.remove(inputErrorClass);
   errorMessageElement.textContent = "";
   errorMessageElement.classList.remove(errorClass);
 }
@@ -33,12 +33,10 @@ function checkInputValidity(formElement, inputElement, options) {
 }
 
 function hasInvalidInput(inputList) {
-  return inputList.every((inputElement) => !inputElement.validity.valid);
+  return inputList.some((inputElement) => !inputElement.validity.valid);
 }
 
-// disableButton
-
-// enableButton
+// disable submit button
 
 function toggleButtonState(
   inputElements,
@@ -48,44 +46,36 @@ function toggleButtonState(
   if (hasInvalidInput(inputElements)) {
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
-    return;
+  } else {
+    submitButton.classList.remove(inactiveButtonClass);
+    submitButton.disabled = false;
   }
-
-  submitButton.classList.remove(inactiveButtonClass);
-  submitButton.disabled = false;
 }
 
 function setEventListeners(formElement, options) {
   const { inputSelector } = options;
   const inputElements = [...formElement.querySelectorAll(inputSelector)];
-  const submitButton = formElement.querySelector(".modal__button");
+  const submitButton = formElement.querySelector(options.submitButtonSelector);
+
   inputElements.forEach((inputElement) => {
-    inputElement.addEventListener("change", (evt) => {
+    inputElement.addEventListener("input", () => {
       checkInputValidity(formElement, inputElement, options);
       toggleButtonState(inputElements, submitButton, options);
     });
   });
+
+  toggleButtonState(inputElements, submitButton, options);
 }
 
 function enableValidation(options) {
   const formElements = [...document.querySelectorAll(options.formSelector)];
+
   formElements.forEach((formElement) => {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
 
     setEventListeners(formElement, options);
-
-    // look for all inputs inside the form
-    // loop throughh all the inputs to see if valid
-    // if all inputs are not valid
-    // get validation message
-    // add error class to input
-    // display error message
-    // disable submit button
-    // if inputs are valid
-    // enable button
-    // reset error messages
   });
 }
 
