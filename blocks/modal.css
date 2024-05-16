@@ -134,7 +134,10 @@
 }
 
 .modal__submit-button_inactive {
-  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 20%;
+  background: none;
+  color: #000000;
+  border: solid 1px #000000;
 }
 
 .modal__input_type_error {
