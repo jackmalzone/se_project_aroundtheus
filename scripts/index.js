@@ -79,9 +79,21 @@ const cardTemplate =
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeModalByEscape);
 }
+
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeModalByEscape);
+}
+
+function closeModalByEscape(event) {
+  if (event.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    if (openedModal) {
+      closeModal(openedModal);
+    }
+  }
 }
 
 function renderCard(cardData, wrapper) {
@@ -165,15 +177,6 @@ document.querySelectorAll(".modal-overlay").forEach((modal) => {
       closeModal(modal);
     }
   });
-});
-
-// close modal when pressing the Escape key
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    document.querySelectorAll(".modal_opened").forEach((modal) => {
-      closeModal(modal);
-    });
-  }
 });
 
 initialCards.forEach((cardData) => renderCard(cardData, cardList));

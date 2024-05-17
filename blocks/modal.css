@@ -138,6 +138,7 @@
   background: none;
   color: #000000;
   border: solid 1px #000000;
+  cursor: default;
 }
 
 .modal__input_type_error {
