@@ -1,3 +1,5 @@
+import Card from "../components/Card.js";
+
 const initialCards = [
   {
     place: "Yosemite Valley",
@@ -30,6 +32,14 @@ const initialCards = [
     alt: "Wooden boats moored at a dock on Lago di Braies with towering Dolomite mountains reflecting in the crystal-clear lake water.",
   },
 ];
+
+const cardData = {
+  place: "Yosemite Valley",
+  link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+  alt: "Sunset view of Yosemite Valley with El Capitan visible, river flowing in the foreground surrounded by dense pine trees.",
+};
+
+const card = new Card(cardData);
 
 // console.log(initialCards);
 
