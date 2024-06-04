@@ -172,5 +172,11 @@ document.querySelectorAll(".modal-overlay").forEach((modal) => {
   });
 });
 
+profilePreviewModal.addEventListener("click", (event) => {
+  if (event.target === profilePreviewModal) {
+    closeModal(profilePreviewModal);
+  }
+});
+
 // Initial render
 initialCards.forEach((cardData) => renderCard(cardData, cardList));
