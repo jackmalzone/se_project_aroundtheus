@@ -27,7 +27,6 @@
 .modal__container {
   display: flex;
   flex-direction: column;
-  /* flex-grow: 0.1564; */
   max-width: 430px;
   width: 100%;
   position: relative;
@@ -35,6 +34,7 @@
   padding: 36px;
   border-radius: 10px;
   box-sizing: border-box;
+  max-height: 90vh;
 }
 
 .modal__container_type_preview {
