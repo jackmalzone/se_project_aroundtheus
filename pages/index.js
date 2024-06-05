@@ -112,6 +112,23 @@ function handleEscapeClose(event) {
   }
 }
 
+let isMouseDownOnModal = false;
+
+function handleMouseDown(event) {
+  if (event.target.classList.contains("modal_opened")) {
+    isMouseDownOnModal = true;
+  } else {
+    isMouseDownOnModal = false;
+  }
+}
+
+function handleMouseUp(event) {
+  if (isMouseDownOnModal && event.target.classList.contains("modal_opened")) {
+    closeModal(event.target);
+  }
+  isMouseDownOnModal = false;
+}
+
 function handleImageClick(link, alt, place) {
   cardPreviewImage.src = link;
   cardPreviewImage.alt = alt;
@@ -140,6 +157,7 @@ function handleAddFormSubmit(evt) {
   renderCard({ place, link }, cardList);
   profileAddForm.reset();
   profileAddFormValidator.resetValidation();
+  profileAddFormValidator.disableButton();
   closeModal(profileAddModal);
 }
 
@@ -158,8 +176,11 @@ profileEditForm.addEventListener("submit", handleEditFormSubmit);
 
 profileAddButton.addEventListener("click", () => {
   profileAddFormValidator.resetValidation();
+  profileAddForm.reset();
+  profileAddFormValidator.disableButton();
   openModal(profileAddModal);
 });
+
 profileAddButtonClose.addEventListener("click", () =>
   closeModal(profileAddModal)
 );
@@ -170,12 +191,9 @@ profilePreviewButtonClose.addEventListener("click", () =>
 );
 
 // Close modal when clicking outside of it
-document.querySelectorAll(".modal-overlay").forEach((modal) => {
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      closeModal(modal);
-    }
-  });
+document.querySelectorAll(".modal").forEach((modal) => {
+  modal.addEventListener("mousedown", handleMouseDown);
+  modal.addEventListener("mouseup", handleMouseUp);
 });
 
 profilePreviewModal.addEventListener("click", (event) => {
