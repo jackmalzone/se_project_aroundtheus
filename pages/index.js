@@ -138,6 +138,8 @@ function handleAddFormSubmit(evt) {
   const place = profileInputPlace.value;
   const link = profileInputLink.value;
   renderCard({ place, link }, cardList);
+  profileAddForm.reset();
+  profileAddFormValidator.resetValidation();
   closeModal(profileAddModal);
 }
 
@@ -145,6 +147,7 @@ function handleAddFormSubmit(evt) {
 profileEditButton.addEventListener("click", () => {
   profileInputName.value = profileName.textContent;
   profileInputDescription.value = profileDescription.textContent;
+  profileEditFormValidator.resetValidation();
   openModal(profileEditModal);
 });
 
@@ -153,7 +156,10 @@ profileEditButtonClose.addEventListener("click", () =>
 );
 profileEditForm.addEventListener("submit", handleEditFormSubmit);
 
-profileAddButton.addEventListener("click", () => openModal(profileAddModal));
+profileAddButton.addEventListener("click", () => {
+  profileAddFormValidator.resetValidation();
+  openModal(profileAddModal);
+});
 profileAddButtonClose.addEventListener("click", () =>
   closeModal(profileAddModal)
 );
