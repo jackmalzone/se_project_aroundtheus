@@ -1,3 +1,5 @@
+import FormValidator from "../components/FormValidator.js";
+
 export const initialCards = [
   {
     place: "Yosemite Valley",
@@ -31,6 +33,8 @@ export const initialCards = [
   },
 ];
 
+export const cardTemplate = document.querySelector("#card-template").content;
+
 // Elements
 export const profileEditModal = document.querySelector("#profile-edit-modal");
 export const profileAddModal = document.querySelector("#profile-add-modal");
@@ -53,12 +57,11 @@ export const profileAddButton = document.querySelector("#profile-add-button");
 export const profilePreviewButtonClose = profilePreviewModal.querySelector(
   "#modal-button-close"
 );
+export let isMouseDownOnModal = false;
 
 // Profile Data
-export const profileName = document.querySelector("#profile-name");
-export const profileDescription = document.querySelector(
-  "#profile-description"
-);
+export const profileName = "#profile-name";
+export const profileDescription = "#profile-description";
 export const cardPreviewImage =
   profilePreviewModal.querySelector(".modal__image");
 export const cardPreviewCaption =

@@ -1,85 +1,37 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import Section from "../components/section.js";
+import PopupWithImage from "../components/popupwithimage.js";
+import PopupWithForm from "../components/popupwithform.js";
+import UserInfo from "../components/userinfo.js";
+import {
+  initialCards,
+  validationSettings,
+  cardTemplate,
+  profileEditModal,
+  profileAddModal,
+  profilePreviewModal,
+  profileEditForm,
+  profileAddForm,
+  cardList,
+  profileEditButton,
+  profileEditButtonClose,
+  profileAddButton,
+  profileAddButtonClose,
+  profilePreviewButtonClose,
+  profileName,
+  profileDescription,
+  cardPreviewImage,
+  cardPreviewCaption,
+  profileInputName,
+  profileInputDescription,
+  profileInputPlace,
+  profileInputLink,
+} from "../utils/constants.js";
+// import { create } from "lodash";
+// import { profile } from "console";
 
-// Initial card data
-const initialCards = [
-  {
-    place: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-    alt: "Sunset view of Yosemite Valley with El Capitan visible, river flowing in the foreground surrounded by dense pine trees.",
-  },
-  {
-    place: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-    alt: "Calm waters of Lake Louise reflecting the surrounding mountains under a soft blue sky.",
-  },
-  {
-    place: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-    alt: "Sunburst peaking over the silhouette of the Bald Mountains at sunrise, casting a warm glow across the hazy, layered ridges.",
-  },
-  {
-    place: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-    alt: "Starry night sky over the jagged peaks of Latemar mountain range with remnants of snow highlighting its rugged terrain.",
-  },
-  {
-    place: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-    alt: "Twilight hues casting a soft glow on the peaks of Vanoise National Park, reflected in the still waters of a mountain lake.",
-  },
-  {
-    place: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-    alt: "Wooden boats moored at a dock on Lago di Braies with towering Dolomite mountains reflecting in the crystal-clear lake water.",
-  },
-];
-
-// Elements
-const profileEditModal = document.querySelector("#profile-edit-modal");
-const profileAddModal = document.querySelector("#profile-add-modal");
-const profilePreviewModal = document.querySelector("#profile-preview-modal");
-const profileEditForm = profileEditModal.querySelector(".modal__form");
-const profileAddForm = profileAddModal.querySelector(".modal__form");
-const cardList = document.querySelector(".cards__list");
-
-// Buttons
-const profileEditButton = document.querySelector("#profile-edit-button");
-const profileEditButtonClose = profileEditModal.querySelector(
-  "#modal-button-close"
-);
-const profileAddButtonClose = profileAddModal.querySelector(
-  "#modal-button-close"
-);
-const profileAddButton = document.querySelector("#profile-add-button");
-const profilePreviewButtonClose = profilePreviewModal.querySelector(
-  "#modal-button-close"
-);
-
-// Profile Data
-const profileName = document.querySelector("#profile-name");
-const profileDescription = document.querySelector("#profile-description");
-const cardPreviewImage = profilePreviewModal.querySelector(".modal__image");
-const cardPreviewCaption = profilePreviewModal.querySelector(".modal__heading");
-
-// Form Data
-const profileInputName = document.querySelector("#modal-input-name");
-const profileInputDescription = document.querySelector(
-  "#modal-input-description"
-);
-const profileInputPlace = profileAddForm.querySelector("#modal-input-place");
-const profileInputLink = profileAddForm.querySelector("#modal-input-link");
-
-// Validation settings
-const validationSettings = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__submit-button_inactive",
-  inputErrorClass: "modal__input_type_error",
-  errorClass: "modal__input-error_active",
-};
-
+// FORM VALIDATION INIT
 const profileEditFormValidator = new FormValidator(
   validationSettings,
   profileEditForm
@@ -92,85 +44,105 @@ const profileAddFormValidator = new FormValidator(
 profileEditFormValidator.enableValidation();
 profileAddFormValidator.enableValidation();
 
-// Functions
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", handleEscapeClose);
-}
+// USER INFO INIT
+const userInfo = new UserInfo({
+  nameSelector: profileName,
+  jobSelector: profileDescription,
+});
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", handleEscapeClose);
-}
+// FORM SUBMIT HANDLERS
+// function handleProfileFormSubmit(data) {
+//   userInfo.setUserInfo(data);
+//   profileEditPopup.close();
+// }
 
-function handleEscapeClose(event) {
-  if (event.key === "Escape") {
-    const openedModal = document.querySelector(".modal_opened");
-    if (openedModal) {
-      closeModal(openedModal);
-    }
-  }
-}
-
-let isMouseDownOnModal = false;
-
-function handleMouseDown(event) {
-  if (event.target.classList.contains("modal_opened")) {
-    isMouseDownOnModal = true;
-  } else {
-    isMouseDownOnModal = false;
-  }
-}
-
-function handleMouseUp(event) {
-  if (isMouseDownOnModal && event.target.classList.contains("modal_opened")) {
-    closeModal(event.target);
-  }
-  isMouseDownOnModal = false;
-}
-
-function handleImageClick(link, alt, place) {
-  cardPreviewImage.src = link;
-  cardPreviewImage.alt = alt;
-  cardPreviewCaption.textContent = place;
-  openModal(profilePreviewModal);
-}
-
-function renderCard(cardData, wrapper) {
-  const card = new Card(cardData, "#card-template", handleImageClick);
-  const cardElement = card.getView();
-  wrapper.prepend(cardElement);
-}
-
-// Event Handlers
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = profileInputName.value;
-  profileDescription.textContent = profileInputDescription.value;
-  closeModal(profileEditModal);
+  userInfo.setUserInfo({
+    name: profileInputName.value,
+    job: profileInputDescription.value,
+  });
+  profileEditForm.reset();
+  profileEditFormValidator.resetValidation();
+  profileEditFormValidator.disableButton();
+  profileEditPopup.close();
 }
 
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
-  const place = profileInputPlace.value;
-  const link = profileInputLink.value;
-  renderCard({ place, link }, cardList);
+  const data = {
+    place: profileInputPlace.value,
+    link: profileInputLink.value,
+    alt: `Image of ${profileInputPlace.value}`,
+  };
+  const cardElement = createCard(data);
+  cardList.addItem(cardElement);
   profileAddForm.reset();
   profileAddFormValidator.resetValidation();
   profileAddFormValidator.disableButton();
-  closeModal(profileAddModal);
+  profileAddPopup.close();
 }
 
-// Event Listeners
+// POPUP INIT
+const profileEditPopup = new PopupWithForm(
+  "#profile-edit-modal",
+  handleEditFormSubmit
+);
+const profileAddPopup = new PopupWithForm(
+  "#profile-add-modal",
+  handleAddFormSubmit
+);
+const profilePreviewPopup = new PopupWithImage("#profile-preview-modal");
+
+profileEditPopup.setEventListeners();
+profileAddPopup.setEventListeners();
+profilePreviewPopup.setEventListeners();
+
+// SECTION INIT
+const CardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = createCard(item);
+      CardSection.addItem(cardElement);
+    },
+  },
+  ".cards__list"
+);
+
+// CREATE CARD
+function createCard(data) {
+  const card = new Card(data, "#card-template", handleImageClick);
+  return card.getView();
+}
+
+// function renderCard(cardData, wrapper) {
+//   const card = new Card(cardData, "#card-template", handleImageClick);
+//   const cardElement = card.getView();
+//   wrapper.prepend(cardElement);
+// }
+
+// Event Handlers
+
+// IMAGE CLICK HANDLER
+function handleImageClick(data) {
+  profilePreviewPopup.open(data);
+}
+
+console.log(profileName, profileDescription); // Should log "#profile-name", "#profile-description"
+console.log(userInfo._nameElement, userInfo._jobElement); // Should log the DOM elements or null if not found
+
+// EVENT LISTENERS
 profileEditButton.addEventListener("click", () => {
-  profileInputName.value = profileName.textContent;
-  profileInputDescription.value = profileDescription.textContent;
+  const userData = userInfo.getUserInfo();
+  profileInputName.value = userData.name;
+  profileInputDescription.value = userData.job;
   profileEditFormValidator.resetValidation();
-  openModal(profileEditModal);
+  profileEditPopup.open();
 });
 
 profileEditButtonClose.addEventListener("click", () =>
-  closeModal(profileEditModal)
+  profileEditPopup.close()
 );
 profileEditForm.addEventListener("submit", handleEditFormSubmit);
 
@@ -178,29 +150,21 @@ profileAddButton.addEventListener("click", () => {
   profileAddFormValidator.resetValidation();
   profileAddForm.reset();
   profileAddFormValidator.disableButton();
-  openModal(profileAddModal);
+  profileAddPopup.open();
 });
 
-profileAddButtonClose.addEventListener("click", () =>
-  closeModal(profileAddModal)
-);
+profileAddButtonClose.addEventListener("click", () => profileAddPopup.close());
 profileAddForm.addEventListener("submit", handleAddFormSubmit);
 
 profilePreviewButtonClose.addEventListener("click", () =>
-  closeModal(profilePreviewModal)
+  profilePreviewPopup.close()
 );
-
-// Close modal when clicking outside of it
-document.querySelectorAll(".modal").forEach((modal) => {
-  modal.addEventListener("mousedown", handleMouseDown);
-  modal.addEventListener("mouseup", handleMouseUp);
-});
 
 profilePreviewModal.addEventListener("click", (event) => {
   if (event.target === profilePreviewModal) {
-    closeModal(profilePreviewModal);
+    profilePreviewPopup.close();
   }
 });
 
-// Initial render
-initialCards.forEach((cardData) => renderCard(cardData, cardList));
+// // Initial render
+CardSection.renderItems();
