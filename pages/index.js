@@ -1,9 +1,10 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import Section from "../components/section.js";
-import PopupWithImage from "../components/popupwithimage.js";
-import PopupWithForm from "../components/popupwithform.js";
-import UserInfo from "../components/userinfo.js";
+import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 import {
   initialCards,
   validationSettings,
@@ -13,7 +14,6 @@ import {
   profilePreviewModal,
   profileEditForm,
   profileAddForm,
-  cardList,
   profileEditButton,
   profileEditButtonClose,
   profileAddButton,
@@ -57,7 +57,6 @@ const userInfo = new UserInfo({
 // }
 
 function handleEditFormSubmit(evt) {
-  evt.preventDefault();
   userInfo.setUserInfo({
     name: profileInputName.value,
     job: profileInputDescription.value,
@@ -68,15 +67,14 @@ function handleEditFormSubmit(evt) {
   profileEditPopup.close();
 }
 
-function handleAddFormSubmit(evt) {
-  evt.preventDefault();
+function handleAddFormSubmit() {
   const data = {
     place: profileInputPlace.value,
     link: profileInputLink.value,
     alt: `Image of ${profileInputPlace.value}`,
   };
   const cardElement = createCard(data);
-  cardList.addItem(cardElement);
+  CardSection.addItem(cardElement);
   profileAddForm.reset();
   profileAddFormValidator.resetValidation();
   profileAddFormValidator.disableButton();
@@ -88,10 +86,12 @@ const profileEditPopup = new PopupWithForm(
   "#profile-edit-modal",
   handleEditFormSubmit
 );
+
 const profileAddPopup = new PopupWithForm(
   "#profile-add-modal",
   handleAddFormSubmit
 );
+
 const profilePreviewPopup = new PopupWithImage("#profile-preview-modal");
 
 profileEditPopup.setEventListeners();
@@ -116,19 +116,12 @@ function createCard(data) {
   return card.getView();
 }
 
-// function renderCard(cardData, wrapper) {
-//   const card = new Card(cardData, "#card-template", handleImageClick);
-//   const cardElement = card.getView();
-//   wrapper.prepend(cardElement);
-// }
-
-// Event Handlers
-
 // IMAGE CLICK HANDLER
 function handleImageClick(data) {
   profilePreviewPopup.open(data);
 }
 
+// DEBUGGING DEBUGGING DEBUGGING
 console.log(profileName, profileDescription); // Should log "#profile-name", "#profile-description"
 console.log(userInfo._nameElement, userInfo._jobElement); // Should log the DOM elements or null if not found
 
@@ -144,6 +137,7 @@ profileEditButton.addEventListener("click", () => {
 profileEditButtonClose.addEventListener("click", () =>
   profileEditPopup.close()
 );
+
 profileEditForm.addEventListener("submit", handleEditFormSubmit);
 
 profileAddButton.addEventListener("click", () => {
@@ -154,7 +148,6 @@ profileAddButton.addEventListener("click", () => {
 });
 
 profileAddButtonClose.addEventListener("click", () => profileAddPopup.close());
-profileAddForm.addEventListener("submit", handleAddFormSubmit);
 
 profilePreviewButtonClose.addEventListener("click", () =>
   profilePreviewPopup.close()

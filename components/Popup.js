@@ -1,12 +1,15 @@
-import { isMouseDownOnModal } from "../utils/constants.js";
-
 export default class Popup {
-  constructor({ popupSelector }) {
+  constructor(popupSelector) {
+    // console.log("Popup selector:", popupSelector); // Debugging line
     this._popupElement = document.querySelector(popupSelector);
+    // console.log("Popup element:", this._popupElement); // Debugging line
     this._handleEscClose = this._handleEscClose.bind(this);
     this._handleMouseDown = this._handleMouseDown.bind(this);
     this._handleMouseUp = this._handleMouseUp.bind(this);
+    this._isMouseDownOnModal = false;
   }
+
+  // Other methods...
 
   open() {
     this._popupElement.classList.add("modal_opened");
@@ -26,24 +29,20 @@ export default class Popup {
 
   _handleMouseDown(event) {
     if (event.target.classList.contains("modal_opened")) {
-      isMouseDownOnModal = true;
+      this._isMouseDownOnModal = true;
     } else {
-      isMouseDownOnModal = false;
+      this._isMouseDownOnModal = false;
     }
   }
 
   _handleMouseUp(event) {
-    if (isMouseDownOnModal && event.target.classList.contains("modal_opened")) {
-      closeModal(event.target);
+    if (
+      this._isMouseDownOnModal &&
+      event.target.classList.contains("modal_opened")
+    ) {
+      this.close(event.target);
     }
-    isMouseDownOnModal = false;
-  }
-
-  _handleImageClick(link, alt, place) {
-    cardPreviewImage.src = link;
-    cardPreviewImage.alt = alt;
-    cardPreviewCaption.textContent = place;
-    open();
+    this._isMouseDownOnModal = false;
   }
 
   setEventListeners() {
@@ -52,5 +51,12 @@ export default class Popup {
     this._popupElement
       .querySelector(".modal__close")
       .addEventListener("click", () => this.close());
+  }
+
+  _handleImageClick(link, alt, place) {
+    cardPreviewImage.src = link;
+    cardPreviewImage.alt = alt;
+    cardPreviewCaption.textContent = place;
+    open();
   }
 }
