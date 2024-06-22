@@ -30,11 +30,14 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
     console.log("Setting event listeners"); // Added debug statement
-    this._popupForm.addEventListener("submit", (evt) => {
+
+    this._popupForm.removeEventListener("submit", this._submitHandler);
+    this._submitHandler = (evt) => {
       evt.preventDefault();
       console.log("Form submitted"); // Added debug statement
       this._handleFormSubmit(this._getInputValues());
-    });
+    };
+    this._popupForm.addEventListener("submit", this._submitHandler);
   }
 
   close() {
@@ -42,10 +45,3 @@ export default class PopupWithForm extends Popup {
     this._popupForm.reset();
   }
 }
-
-// index.js
-
-// const newCardPopup = new PopupWithForm('#profile-add-modal', () => {;
-// newCardPopup.open();
-
-// newCardPopup.close();

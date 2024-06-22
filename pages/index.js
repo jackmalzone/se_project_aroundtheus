@@ -56,12 +56,15 @@ const userInfo = new UserInfo({
 //   profileEditPopup.close();
 // }
 
-function handleEditFormSubmit(evt) {
+function handleEditFormSubmit() {
+  console.log("Edit form submitted");
+  console.log("Name:", profileInputName.value);
+  console.log("Description:", profileInputDescription.value);
   userInfo.setUserInfo({
     name: profileInputName.value,
     job: profileInputDescription.value,
   });
-  profileEditForm.reset();
+  // profileEditForm.reset();
   profileEditFormValidator.resetValidation();
   profileEditFormValidator.disableButton();
   profileEditPopup.close();
@@ -128,8 +131,11 @@ console.log(userInfo._nameElement, userInfo._jobElement); // Should log the DOM 
 // EVENT LISTENERS
 profileEditButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
+  console.log("Edit Button Clicked - User Data:", userData);
+
   profileInputName.value = userData.name;
   profileInputDescription.value = userData.job;
+
   profileEditFormValidator.resetValidation();
   profileEditPopup.open();
 });
@@ -138,7 +144,10 @@ profileEditButtonClose.addEventListener("click", () =>
   profileEditPopup.close()
 );
 
-profileEditForm.addEventListener("submit", handleEditFormSubmit);
+if (!profileEditForm.hasAttribute("data-listener")) {
+  profileEditForm.setAttribute("data-listener", "true");
+  profileEditForm.addEventListener("submit", handleEditFormSubmit);
+}
 
 profileAddButton.addEventListener("click", () => {
   profileAddFormValidator.resetValidation();
