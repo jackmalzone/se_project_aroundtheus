@@ -79,10 +79,19 @@ The JavaScript codebase is designed to be scalable and maintainable, with a clea
 - HTML5 for structured web content
 - CSS3 for modern web styling
 - JavaScript (ES6, DOM manipulation, event handling, and form validation)
+- Webpack for module bundling
 - Git and GitHub for version control
 - Figma for design mockups
 
-## Setup
+## Webpack Setup
+
+The project uses Webpack for bundling JavaScript modules, enabling a cleaner and more efficient development process. The Webpack configuration includes:
+
+- **Entry and Output**: Specified entry point for the app and the output directory for the bundled code.
+- **Loaders**: Configured loaders for processing CSS and images, allowing seamless integration and optimization.
+- **Plugins**: Utilized plugins for HTML template generation and environment variable management.
+
+## Git Setup
 
 To view the project on your local machine:
 
@@ -114,7 +123,7 @@ Jack Malzone
 
 ## License
 
-This project is licensed under some sort of license maybe ?
+MIT
 
 ## Acknowledgements
 
