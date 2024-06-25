@@ -52,11 +52,4 @@ export default class Popup {
       .querySelector(".modal__close")
       .addEventListener("click", () => this.close());
   }
-
-  _handleImageClick(link, alt, place) {
-    cardPreviewImage.src = link;
-    cardPreviewImage.alt = alt;
-    cardPreviewCaption.textContent = place;
-    open();
-  }
 }

@@ -50,14 +50,8 @@ const userInfo = new UserInfo({
   jobSelector: profileDescription,
 });
 
-// FORM SUBMIT HANDLERS
-// function handleProfileFormSubmit(data) {
-//   userInfo.setUserInfo(data);
-//   profileEditPopup.close();
-// }
-
 function handleEditFormSubmit() {
-  console.log("Edit form submitted");
+  console.log("Edit form submit handler called"); // Add this line
   console.log("Name:", profileInputName.value);
   console.log("Description:", profileInputDescription.value);
   userInfo.setUserInfo({
@@ -120,13 +114,9 @@ function createCard(data) {
 }
 
 // IMAGE CLICK HANDLER
-function handleImageClick(data) {
-  profilePreviewPopup.open(data);
+function handleImageClick(link, alt, place) {
+  profilePreviewPopup.open(link, alt, place);
 }
-
-// DEBUGGING DEBUGGING DEBUGGING
-console.log(profileName, profileDescription); // Should log "#profile-name", "#profile-description"
-console.log(userInfo._nameElement, userInfo._jobElement); // Should log the DOM elements or null if not found
 
 // EVENT LISTENERS
 profileEditButton.addEventListener("click", () => {
@@ -143,11 +133,6 @@ profileEditButton.addEventListener("click", () => {
 profileEditButtonClose.addEventListener("click", () =>
   profileEditPopup.close()
 );
-
-if (!profileEditForm.hasAttribute("data-listener")) {
-  profileEditForm.setAttribute("data-listener", "true");
-  profileEditForm.addEventListener("submit", handleEditFormSubmit);
-}
 
 profileAddButton.addEventListener("click", () => {
   profileAddFormValidator.resetValidation();
