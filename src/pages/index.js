@@ -1,3 +1,4 @@
+import "./index.css";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -58,7 +59,7 @@ function handleEditFormSubmit() {
     name: profileInputName.value,
     job: profileInputDescription.value,
   });
-  // profileEditForm.reset();
+  profileEditForm.reset();
   profileEditFormValidator.resetValidation();
   profileEditFormValidator.disableButton();
   profileEditPopup.close();
