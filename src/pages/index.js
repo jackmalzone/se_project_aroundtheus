@@ -16,8 +16,6 @@ import {
   profileDescription,
   profileInputName,
   profileInputDescription,
-  profileInputPlace,
-  profileInputLink,
 } from "../utils/constants.js";
 // import { create } from "lodash";
 // import { profile } from "console";
@@ -41,32 +39,30 @@ const userInfo = new UserInfo({
   jobSelector: profileDescription,
 });
 
-function handleEditFormSubmit() {
-  console.log("Edit form submit handler called"); // Add this line
-  console.log("Name:", profileInputName.value);
-  console.log("Description:", profileInputDescription.value);
+function handleEditFormSubmit(data) {
   userInfo.setUserInfo({
-    name: profileInputName.value,
-    job: profileInputDescription.value,
+    name: data.title,
+    job: data.description,
   });
+
   profileEditForm.reset();
-  profileEditFormValidator.resetValidation();
   profileEditFormValidator.disableButton();
   profileEditPopup.close();
 }
 
-function handleAddFormSubmit() {
-  const data = {
-    place: profileInputPlace.value,
-    link: profileInputLink.value,
-    alt: `Image of ${profileInputPlace.value}`,
+function handleAddFormSubmit(data) {
+  const cardData = {
+    place: data.place,
+    link: data.link,
+    alt: `Image of ${data.place}`,
   };
-  const cardElement = createCard(data);
-  CardSection.addItem(cardElement);
-  profileAddForm.reset();
-  profileAddFormValidator.resetValidation();
+  const cardElement = createCard(cardData);
+
+  cardSection.addItem(cardElement);
+
   profileAddFormValidator.disableButton();
   profileAddPopup.close();
+  profileAddForm.reset();
 }
 
 // POPUP INIT
@@ -87,12 +83,12 @@ profileAddPopup.setEventListeners();
 profilePreviewPopup.setEventListeners();
 
 // SECTION INIT
-const CardSection = new Section(
+const cardSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
       const cardElement = createCard(item);
-      CardSection.addItem(cardElement);
+      cardSection.addItem(cardElement, true);
     },
   },
   ".cards__list"
@@ -112,7 +108,6 @@ function handleImageClick(link, alt, place) {
 // EVENT LISTENERS
 profileEditButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
-  console.log("Edit Button Clicked - User Data:", userData);
 
   profileInputName.value = userData.name;
   profileInputDescription.value = userData.job;
@@ -123,10 +118,10 @@ profileEditButton.addEventListener("click", () => {
 
 profileAddButton.addEventListener("click", () => {
   profileAddFormValidator.resetValidation();
-  profileAddForm.reset();
-  profileAddFormValidator.disableButton();
   profileAddPopup.open();
 });
 
 // // Initial render
-CardSection.renderItems();
+cardSection.renderItems();
+
+// Will add needs corrected in future
