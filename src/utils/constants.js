@@ -86,12 +86,3 @@ export const validationSettings = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__input-error_active",
 };
-
-export const profileEditFormValidator = new FormValidator(
-  validationSettings,
-  profileEditForm
-);
-export const profileAddFormValidator = new FormValidator(
-  validationSettings,
-  profileAddForm
-);

@@ -131,27 +131,11 @@ profileEditButton.addEventListener("click", () => {
   profileEditPopup.open();
 });
 
-profileEditButtonClose.addEventListener("click", () =>
-  profileEditPopup.close()
-);
-
 profileAddButton.addEventListener("click", () => {
   profileAddFormValidator.resetValidation();
   profileAddForm.reset();
   profileAddFormValidator.disableButton();
   profileAddPopup.open();
-});
-
-profileAddButtonClose.addEventListener("click", () => profileAddPopup.close());
-
-profilePreviewButtonClose.addEventListener("click", () =>
-  profilePreviewPopup.close()
-);
-
-profilePreviewModal.addEventListener("click", (event) => {
-  if (event.target === profilePreviewModal) {
-    profilePreviewPopup.close();
-  }
 });
 
 // // Initial render
