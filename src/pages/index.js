@@ -60,7 +60,6 @@ function handleAddFormSubmit(data) {
 
   cardSection.addItem(cardElement);
   profileAddForm.reset();
-  profileAddFormValidator.resetValidation();
   profileAddFormValidator.disableButton();
   profileAddPopup.close();
 }
