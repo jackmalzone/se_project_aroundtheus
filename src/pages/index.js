@@ -59,10 +59,10 @@ function handleAddFormSubmit(data) {
   const cardElement = createCard(cardData);
 
   cardSection.addItem(cardElement);
-
+  profileAddForm.reset();
+  profileAddFormValidator.resetValidation();
   profileAddFormValidator.disableButton();
   profileAddPopup.close();
-  profileAddForm.reset();
 }
 
 // POPUP INIT
@@ -117,7 +117,6 @@ profileEditButton.addEventListener("click", () => {
 });
 
 profileAddButton.addEventListener("click", () => {
-  profileAddFormValidator.resetValidation();
   profileAddPopup.open();
 });
 
