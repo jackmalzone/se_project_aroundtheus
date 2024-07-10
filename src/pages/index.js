@@ -1,4 +1,5 @@
 import "./index.css";
+import Api from "../utils/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -6,6 +7,8 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import {
+  baseUrl,
+  authToken,
   initialCards,
   validationSettings,
   profileEditForm,
@@ -17,8 +20,6 @@ import {
   profileInputName,
   profileInputDescription,
 } from "../utils/constants.js";
-// import { create } from "lodash";
-// import { profile } from "console";
 
 // FORM VALIDATION INIT
 const profileEditFormValidator = new FormValidator(

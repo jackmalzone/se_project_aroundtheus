@@ -1,5 +1,3 @@
-import FormValidator from "../components/FormValidator.js";
-
 export const initialCards = [
   {
     place: "Yosemite Valley",
@@ -32,6 +30,12 @@ export const initialCards = [
     alt: "Wooden boats moored at a dock on Lago di Braies with towering Dolomite mountains reflecting in the crystal-clear lake water.",
   },
 ];
+
+// API
+export const apiConfig = {
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  authToken: "a7724cf5-bbae-4dbf-9df3-18ade6ef18e0",
+};
 
 export const cardTemplate = document.querySelector("#card-template").content;
 
