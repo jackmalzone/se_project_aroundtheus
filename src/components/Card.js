@@ -34,10 +34,10 @@ export default class Card {
     const likeButton = this._cardElement.querySelector(".card__like-button");
     try {
       if (likeButton.classList.contains("card__like-button_active")) {
-        await api.unlikeCard(this._id);
+        await Api.unlikeCard(this._id);
         likeButton.classList.remove("card__like-button_active");
       } else {
-        await api.likeCard(this._id);
+        await Api.likeCard(this._id);
         likeButton.classList.add("card__like-button_active");
       }
     } catch (err) {
@@ -47,7 +47,7 @@ export default class Card {
 
   async _handleDeleteButton() {
     try {
-      await api.deleteCard(this._id);
+      await Api.deleteCard(this._id);
       this._cardElement.remove();
       this._cardElement = null;
     } catch (err) {

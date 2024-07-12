@@ -13,6 +13,7 @@ import {
   validationSettings,
   profileEditForm,
   profileAddForm,
+  profileAvatarForm,
   profileEditButton,
   profileAddButton,
   profileName,
@@ -31,8 +32,14 @@ const profileAddFormValidator = new FormValidator(
   profileAddForm
 );
 
+const profileAvatarFormValidator = new FormValidator(
+  validationSettings,
+  profileAvatarForm
+);
+
 profileEditFormValidator.enableValidation();
 profileAddFormValidator.enableValidation();
+profileAvatarFormValidator.enableValidation();
 
 // USER INFO INIT
 const userInfo = new UserInfo({
@@ -40,29 +47,58 @@ const userInfo = new UserInfo({
   aboutSelector: profileDescription,
 });
 
-function handleEditFormSubmit(data) {
-  userInfo.setUserInfo({
-    name: data.title,
-    about: data.description,
-  });
+async function handleEditFormSubmit(data) {
+  try {
+    await Api.updateProfile({
+      name: data.title,
+      about: data.description,
+    });
 
-  profileEditForm.reset();
-  profileEditFormValidator.disableButton();
-  profileEditPopup.close();
+    userInfo.setUserInfo({
+      name: data.title,
+      about: data.description,
+    });
+
+    profileEditForm.reset();
+    profileEditFormValidator.disableButton();
+    profileEditPopup.close();
+  } catch (err) {
+    console.error("Error updating profile:", err);
+  }
 }
 
-function handleAddFormSubmit(data) {
-  const cardData = {
-    place: data.place,
-    link: data.link,
-    alt: `Image of ${data.place}`,
-  };
-  const cardElement = createCard(cardData);
+async function handleAddFormSubmit(data) {
+  try {
+    const cardData = await Api.addCard({
+      name: data.place,
+      link: data.link,
+    });
 
-  cardSection.addItem(cardElement);
-  profileAddForm.reset();
-  profileAddFormValidator.disableButton();
-  profileAddPopup.close();
+    const cardElement = createCard(cardData);
+    cardSection.addItem(cardElement);
+
+    profileAddForm.reset();
+    profileAddFormValidator.disableButton();
+    profileAddPopup.close();
+  } catch (err) {
+    console.error("Error adding card:", err);
+  }
+}
+
+async function handleAvatarFormSubmit(data) {
+  try {
+    await Api.updateAvatar(data.avatar);
+
+    userInfo.setUserInfo({
+      avatar: data.avatar,
+    });
+
+    profileAvatarForm.reset();
+    profileAvatarFormValidator.disableButton();
+    profileAvatarPopup.close();
+  } catch (err) {
+    console.error("Error updating avatar:", err);
+  }
 }
 
 // POPUP INIT
@@ -76,10 +112,16 @@ const profileAddPopup = new PopupWithForm(
   handleAddFormSubmit
 );
 
+const profileAvatarPopup = new PopupWithForm(
+  "#profile-avatar-modal",
+  handleAvatarFormSubmit
+);
+
 const profilePreviewPopup = new PopupWithImage("#profile-preview-modal");
 
 profileEditPopup.setEventListeners();
 profileAddPopup.setEventListeners();
+profileAvatarPopup.setEventListeners();
 profilePreviewPopup.setEventListeners();
 
 // SECTION INIT
@@ -118,6 +160,21 @@ profileEditButton.addEventListener("click", () => {
 
 profileAddButton.addEventListener("click", () => {
   profileAddPopup.open();
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const userInfoData = await Api.getUserInfo();
+    userInfo.setUserInfo(userInfoData);
+
+    const initialCardsData = await api.getInitialCards();
+    initialCardsData.forEach((data) => {
+      const cardElement = createCard(data);
+      cardSection.addItem(cardElement);
+    });
+  } catch (err) {
+    console.error("Error during initial load:", err);
+  }
 });
 
 // // Initial render

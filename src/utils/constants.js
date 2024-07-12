@@ -42,11 +42,16 @@ export const cardTemplate = document.querySelector("#card-template").content;
 // Elements
 export const profileEditModal = document.querySelector("#profile-edit-modal");
 export const profileAddModal = document.querySelector("#profile-add-modal");
+export const profileAvatarModal = document.querySelector(
+  "#profile-avatar-modal"
+);
 export const profilePreviewModal = document.querySelector(
   "#profile-preview-modal"
 );
 export const profileEditForm = profileEditModal.querySelector(".modal__form");
 export const profileAddForm = profileAddModal.querySelector(".modal__form");
+export const profileAvatarForm =
+  profileAvatarModal.querySelector(".modal__form");
 export const cardList = document.querySelector(".cards__list");
 
 // Buttons
