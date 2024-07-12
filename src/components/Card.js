@@ -30,15 +30,29 @@ export default class Card {
       });
   }
 
-  _handleLikeButton() {
-    this._cardElement
-      .querySelector(".card__like-button")
-      .classList.toggle("card__like-button_active");
+  async _handleLikeButton() {
+    const likeButton = this._cardElement.querySelector(".card__like-button");
+    try {
+      if (likeButton.classList.contains("card__like-button_active")) {
+        await api.unlikeCard(this._id);
+        likeButton.classList.remove("card__like-button_active");
+      } else {
+        await api.likeCard(this._id);
+        likeButton.classList.add("card__like-button_active");
+      }
+    } catch (err) {
+      console.error("Error liking/unliking card:", err);
+    }
   }
 
-  _handleDeleteButton() {
-    this._cardElement.remove();
-    this._cardElement = null;
+  async _handleDeleteButton() {
+    try {
+      await api.deleteCard(this._id);
+      this._cardElement.remove();
+      this._cardElement = null;
+    } catch (err) {
+      console.error("Error deleting card:", err);
+    }
   }
 
   getView() {
@@ -61,15 +75,14 @@ export default class Card {
   }
 }
 
-export function renderInitialCards(cardSelector, handleImageClick) {
-  Api.getInitialCards()
-    .then((result) => {
-      result.forEach((data) => {
-        const card = new Card(data, cardSelector, handleImageClick);
-        cardList.append(card.getView());
-      });
-    })
-    .catch((err) => {
-      console.error("Error loading initial cards:", err);
+export async function renderInitialCards(cardSelector, handleImageClick) {
+  try {
+    const result = await Api.getInitialCards();
+    result.forEach((data) => {
+      const card = new Card(data, cardSelector, handleImageClick);
+      cardList.append(card.getView());
     });
+  } catch (err) {
+    console.error("Error loading initial cards:", err);
+  }
 }

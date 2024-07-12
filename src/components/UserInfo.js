@@ -21,17 +21,16 @@ export default class UserInfo {
     this._avatarElement.src = avatar;
   }
 
-  updateUserInfo() {
-    Api.getUserInfo()
-      .then((userInfo) => {
-        this.setUserInfo({
-          name: userInfo.name,
-          about: userInfo.about,
-          avatar: userInfo.avatar,
-        });
-      })
-      .catch((err) => {
-        console.error(err);
+  async updateUserInfo() {
+    try {
+      const userInfo = await api.getUserInfo();
+      this.setUserInfo({
+        name: userInfo.name,
+        about: userInfo.about,
+        avatar: userInfo.avatar,
       });
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
