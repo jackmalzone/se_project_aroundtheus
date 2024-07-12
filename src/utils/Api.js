@@ -13,63 +13,59 @@ class Api {
     return Promise.reject(`Error: ${res.status}`);
   }
 
-  getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      method: "GET",
+  async _request(endpoint, options = {}) {
+    const res = await fetch(`${this._baseUrl}${endpoint}`, {
+      ...options,
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
+    return this._checkResponse(res);
   }
 
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: "GET",
-      headers: this._headers,
-    }).then(this._checkResponse);
+  async getInitialCards() {
+    return this._request("/cards");
   }
 
-  updateProfile(data) {
-    return fetch(`${this._baseUrl}/users/me`, {
+  async getUserInfo() {
+    return this._request("/users/me");
+  }
+
+  async updateProfile(data) {
+    return this._request("/users/me", {
       method: "PATCH",
-      headers: this._headers,
       body: JSON.stringify(data),
-    }).then(this._checkResponse);
+    });
   }
 
-  updateAvatar(avatarLink) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+  async updateAvatar(avatarLink) {
+    return this._request("/users/me/avatar", {
       method: "PATCH",
-      headers: this._headers,
       body: JSON.stringify({ avatar: avatarLink }),
-    }).then(this._checkResponse);
+    });
   }
 
-  addCard(data) {
-    return fetch(`${this._baseUrl}/cards`, {
+  async addCard(data) {
+    return this._request("/cards", {
       method: "POST",
-      headers: this._headers,
       body: JSON.stringify(data),
-    }).then(this._checkResponse);
+    });
   }
 
-  deleteCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+  async deleteCard(cardId) {
+    return this._request(`/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 
-  likeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+  async likeCard(cardId) {
+    return this._request(`/cards/likes/${cardId}`, {
       method: "PUT",
-      headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 
-  unlikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+  async unlikeCard(cardId) {
+    return this._request(`/cards/likes/${cardId}`, {
       method: "DELETE",
-      headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
   // other methods for working with the API
 }

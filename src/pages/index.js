@@ -37,13 +37,13 @@ profileAddFormValidator.enableValidation();
 // USER INFO INIT
 const userInfo = new UserInfo({
   nameSelector: profileName,
-  jobSelector: profileDescription,
+  aboutSelector: profileDescription,
 });
 
 function handleEditFormSubmit(data) {
   userInfo.setUserInfo({
     name: data.title,
-    job: data.description,
+    about: data.description,
   });
 
   profileEditForm.reset();
@@ -110,7 +110,7 @@ profileEditButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
 
   profileInputName.value = userData.name;
-  profileInputDescription.value = userData.job;
+  profileInputDescription.value = userData.about;
 
   profileEditFormValidator.resetValidation();
   profileEditPopup.open();

@@ -1,6 +1,9 @@
+import { Api } from "../utils/Api.js";
+import { cardList } from "../utils/constants";
+
 export default class Card {
   constructor(data, cardSelector, handleImageClick) {
-    this._place = data.place;
+    this._place = data.name;
     this._link = data.link;
     this._alt = data.alt;
     this._cardSelector = cardSelector;
@@ -56,4 +59,17 @@ export default class Card {
     // return card
     return this._cardElement;
   }
+}
+
+export function renderInitialCards(cardSelector, handleImageClick) {
+  Api.getInitialCards()
+    .then((result) => {
+      result.forEach((data) => {
+        const card = new Card(data, cardSelector, handleImageClick);
+        cardList.append(card.getView());
+      });
+    })
+    .catch((err) => {
+      console.error("Error loading initial cards:", err);
+    });
 }
