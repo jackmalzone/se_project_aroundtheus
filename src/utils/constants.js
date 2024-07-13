@@ -63,6 +63,12 @@ export const profileAddButtonClose = profileAddModal.querySelector(
   "#modal-button-close"
 );
 export const profileAddButton = document.querySelector("#profile-add-button");
+export const profileAvatarButton = document.querySelector(
+  "#profile-avatar-button"
+);
+export const profileAvatarButtonClose = profileAvatarModal.querySelector(
+  "#modal-button-close"
+);
 export const profilePreviewButtonClose = profilePreviewModal.querySelector(
   "#modal-button-close"
 );

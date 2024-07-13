@@ -25,11 +25,22 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up."
-            class="profile__image"
-          />
+          <!-- edit avatar -->
+          <button
+            class="profile__button profile__button_type_avatar"
+            id="profile-avatar-button"
+            type="button"
+            aria-label="Edit Profile Picture"
+          >
+            <img
+              src="<%=require('./images/jacques-cousteau.jpg')%>"
+              alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up."
+              class="profile__image"
+            />
+            <span class="sr-only">Edit Profile Picture</span>
+          </button>
+          <!-- overlay -->
+          <div class="profile__image-overlay"></div>
           <div class="profile__info">
             <h1 class="profile__name" id="profile-name">Jacques Cousteau</h1>
             <button
