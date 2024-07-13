@@ -34,7 +34,7 @@ export const initialCards = [
 // API
 export const apiConfig = {
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  authToken: "a7724cf5-bbae-4dbf-9df3-18ade6ef18e0",
+  authToken: "06257429-d905-4d9f-95bb-18862a4fbeb9",
 };
 
 export const cardTemplate = document.querySelector("#card-template").content;

@@ -71,7 +71,7 @@ class Api {
 }
 
 // API INIT
-const Api = new Api({
+const api = new Api({
   baseUrl: apiConfig.baseUrl,
   headers: {
     authorization: `Bearer ${apiConfig.authToken}`,
@@ -79,4 +79,4 @@ const Api = new Api({
   },
 });
 
-export default Api;
+export default api;

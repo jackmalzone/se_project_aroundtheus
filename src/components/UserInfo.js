@@ -1,4 +1,4 @@
-import Api from "../utils/Api.js";
+import api from "../utils/Api.js";
 
 export default class UserInfo {
   constructor({ nameSelector, aboutSelector, avatarSelector }) {

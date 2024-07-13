@@ -1,13 +1,14 @@
-import { Api } from "../utils/Api.js";
+import api from "../utils/Api.js";
 import { cardList } from "../utils/constants";
 
 export default class Card {
   constructor(data, cardSelector, handleImageClick) {
-    this._place = data.name;
+    this._name = data.name;
     this._link = data.link;
     this._alt = data.alt;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._id = data._id;
   }
 
   _setEventListeners() {
@@ -26,7 +27,7 @@ export default class Card {
     this._cardElement
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        this._handleImageClick(this._link, this._alt, this._place);
+        this._handleImageClick(this._link, this._alt, this._name);
       });
   }
 
@@ -34,10 +35,10 @@ export default class Card {
     const likeButton = this._cardElement.querySelector(".card__like-button");
     try {
       if (likeButton.classList.contains("card__like-button_active")) {
-        await Api.unlikeCard(this._id);
+        await api.unlikeCard(this._id);
         likeButton.classList.remove("card__like-button_active");
       } else {
-        await Api.likeCard(this._id);
+        await api.likeCard(this._id);
         likeButton.classList.add("card__like-button_active");
       }
     } catch (err) {
@@ -47,7 +48,7 @@ export default class Card {
 
   async _handleDeleteButton() {
     try {
-      await Api.deleteCard(this._id);
+      await api.deleteCard(this._id);
       this._cardElement.remove();
       this._cardElement = null;
     } catch (err) {
@@ -65,7 +66,7 @@ export default class Card {
 
     cardImage.src = this._link;
     cardImage.alt = this._alt;
-    cardCaption.textContent = this._place;
+    cardCaption.textContent = this._name;
 
     // set event listener
     this._setEventListeners();
@@ -77,7 +78,7 @@ export default class Card {
 
 export async function renderInitialCards(cardSelector, handleImageClick) {
   try {
-    const result = await Api.getInitialCards();
+    const result = await api.getInitialCards();
     result.forEach((data) => {
       const card = new Card(data, cardSelector, handleImageClick);
       cardList.append(card.getView());

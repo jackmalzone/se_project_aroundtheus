@@ -1,5 +1,5 @@
 import "./index.css";
-import Api from "../utils/Api.js";
+import api from "../utils/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -16,6 +16,7 @@ import {
   profileAvatarForm,
   profileEditButton,
   profileAddButton,
+  profileAvatarButton,
   profileName,
   profileDescription,
   profileInputName,
@@ -49,7 +50,7 @@ const userInfo = new UserInfo({
 
 async function handleEditFormSubmit(data) {
   try {
-    await Api.updateProfile({
+    await api.updateProfile({
       name: data.title,
       about: data.description,
     });
@@ -69,8 +70,8 @@ async function handleEditFormSubmit(data) {
 
 async function handleAddFormSubmit(data) {
   try {
-    const cardData = await Api.addCard({
-      name: data.place,
+    const cardData = await api.addCard({
+      name: data.name,
       link: data.link,
     });
 
@@ -87,7 +88,7 @@ async function handleAddFormSubmit(data) {
 
 async function handleAvatarFormSubmit(data) {
   try {
-    await Api.updateAvatar(data.avatar);
+    await api.updateAvatar(data.avatar);
 
     userInfo.setUserInfo({
       avatar: data.avatar,
@@ -143,8 +144,8 @@ function createCard(data) {
 }
 
 // IMAGE CLICK HANDLER
-function handleImageClick(link, alt, place) {
-  profilePreviewPopup.open(link, alt, place);
+function handleImageClick(link, alt, name) {
+  profilePreviewPopup.open(link, alt, name);
 }
 
 // EVENT LISTENERS
@@ -162,9 +163,13 @@ profileAddButton.addEventListener("click", () => {
   profileAddPopup.open();
 });
 
+profileAvatarButton.addEventListener("click", () => {
+  profileAvatarPopup.open();
+});
+
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const userInfoData = await Api.getUserInfo();
+    const userInfoData = await api.getUserInfo();
     userInfo.setUserInfo(userInfoData);
 
     const initialCardsData = await api.getInitialCards();

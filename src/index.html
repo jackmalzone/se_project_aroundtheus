@@ -32,12 +32,14 @@
             type="button"
             aria-label="Edit Profile Picture"
           >
-            <img
-              src="<%=require('./images/jacques-cousteau.jpg')%>"
-              alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up."
-              class="profile__image"
-            />
-            <span class="sr-only">Edit Profile Picture</span>
+            <div class="profile__avatar-overlay">
+              <img
+                src="<%=require('./images/jacques-cousteau.jpg')%>"
+                alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up."
+                class="profile__image"
+              />
+              <span class="sr-only">Edit Profile Picture</span>
+            </div>
           </button>
           <!-- overlay -->
           <div class="profile__image-overlay"></div>
