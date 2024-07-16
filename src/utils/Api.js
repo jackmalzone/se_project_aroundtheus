@@ -14,6 +14,8 @@ class Api {
   }
 
   async _request(endpoint, options = {}) {
+    console.log("Headers: ", this._headers);
+
     const res = await fetch(`${this._baseUrl}${endpoint}`, {
       ...options,
       headers: this._headers,
@@ -67,14 +69,13 @@ class Api {
       method: "DELETE",
     });
   }
-  // other methods for working with the API
 }
 
 // API INIT
 const api = new Api({
   baseUrl: apiConfig.baseUrl,
   headers: {
-    authorization: `Bearer ${apiConfig.authToken}`,
+    Authorization: "4e792af1-5796-4959-889f-63e7625cacce",
     "Content-Type": "application/json",
   },
 });

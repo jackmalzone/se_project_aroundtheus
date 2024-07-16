@@ -32,14 +32,14 @@
             type="button"
             aria-label="Edit Profile Picture"
           >
-            <div class="profile__avatar-overlay">
-              <img
-                src="<%=require('./images/jacques-cousteau.jpg')%>"
-                alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up."
-                class="profile__image"
-              />
-              <span class="sr-only">Edit Profile Picture</span>
-            </div>
+            <img
+              src="<%=require('./images/jacques-cousteau.jpg')%>"
+              alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up."
+              class="profile__image"
+              id="profile-avatar"
+            />
+            <div class="profile__avatar-overlay"></div>
+            <span class="sr-only">Edit Profile Picture</span>
           </button>
           <!-- overlay -->
           <div class="profile__image-overlay"></div>
@@ -87,10 +87,10 @@
           <span class="sr-only">Close edit post window</span>
         </button>
         <h2 class="modal__heading">Edit Profile</h2>
-        <form class="modal__form">
+        <form class="modal__form" id="edit-card-form">
           <input
             type="text"
-            name="title"
+            name="name"
             class="modal__input"
             id="modal-input-name"
             placeholder="Name"
@@ -171,7 +171,7 @@
           <span class="sr-only">Close new avatar window</span>
         </button>
         <h2 class="modal__heading">Change Profile Picture</h2>
-        <form class="modal__form" id="add-card-form">
+        <form class="modal__form" id="edit-avatar-form">
           <input
             type="url"
             name="link"

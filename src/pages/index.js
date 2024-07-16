@@ -19,6 +19,7 @@ import {
   profileAvatarButton,
   profileName,
   profileDescription,
+  profileAvatar,
   profileInputName,
   profileInputDescription,
 } from "../utils/constants.js";
@@ -46,17 +47,18 @@ profileAvatarFormValidator.enableValidation();
 const userInfo = new UserInfo({
   nameSelector: profileName,
   aboutSelector: profileDescription,
+  avatarSelector: profileAvatar,
 });
 
 async function handleEditFormSubmit(data) {
   try {
     await api.updateProfile({
-      name: data.title,
+      name: data.name,
       about: data.description,
     });
 
     userInfo.setUserInfo({
-      name: data.title,
+      name: data.name,
       about: data.description,
     });
 
@@ -71,7 +73,7 @@ async function handleEditFormSubmit(data) {
 async function handleAddFormSubmit(data) {
   try {
     const cardData = await api.addCard({
-      name: data.name,
+      name: data.place,
       link: data.link,
     });
 
@@ -88,10 +90,10 @@ async function handleAddFormSubmit(data) {
 
 async function handleAvatarFormSubmit(data) {
   try {
-    await api.updateAvatar(data.avatar);
+    await api.updateAvatar(data.link);
 
     userInfo.setUserInfo({
-      avatar: data.avatar,
+      avatar: data.link,
     });
 
     profileAvatarForm.reset();
