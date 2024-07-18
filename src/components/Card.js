@@ -2,13 +2,22 @@ import api from "../utils/Api.js";
 import { cardList } from "../utils/constants";
 
 export default class Card {
-  constructor(data, cardSelector, handleImageClick) {
+  constructor(data, cardSelector, handleImageClick, currentUserId) {
     this._name = data.name;
     this._link = data.link;
     this._alt = data.alt;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._id = data._id;
+    this._likes = data.likes || [];
+    this._currentUserId = currentUserId;
+
+    console.log("Card Data:", data); // Debugging line
+    console.log("Likes Array:", this._likes); // Debugging line
+
+    this._isLiked = this._likes.some(
+      (user) => user._id === this._currentUserId
+    );
   }
 
   _setEventListeners() {
@@ -34,11 +43,17 @@ export default class Card {
   async _handleLikeButton() {
     const likeButton = this._cardElement.querySelector(".card__like-button");
     try {
-      if (likeButton.classList.contains("card__like-button_active")) {
-        await api.unlikeCard(this._id);
+      if (this._isLiked) {
+        const updatedCard = await api.unlikeCard(this._id);
+        this._isLiked = updatedCard.likes.some(
+          (user) => user._id === this._currentUserId
+        );
         likeButton.classList.remove("card__like-button_active");
       } else {
-        await api.likeCard(this._id);
+        const updatedCard = await api.likeCard(this._id);
+        this._isLiked = updatedCard.likes.some(
+          (user) => user._id === this._currentUserId
+        );
         likeButton.classList.add("card__like-button_active");
       }
     } catch (err) {
@@ -63,24 +78,34 @@ export default class Card {
     // get card view
     const cardImage = this._cardElement.querySelector(".card__image");
     const cardCaption = this._cardElement.querySelector(".card__caption");
+    const likeButton = this._cardElement.querySelector(".card__like-button");
 
     cardImage.src = this._link;
     cardImage.alt = this._alt;
     cardCaption.textContent = this._name;
 
-    // set event listener
+    if (this._isLiked) {
+      likeButton.classList.add("card__like-button_active");
+    }
     this._setEventListeners();
-
-    // return card
     return this._cardElement;
   }
 }
 
-export async function renderInitialCards(cardSelector, handleImageClick) {
+export async function renderInitialCards(
+  cardSelector,
+  handleImageClick,
+  currentUserId
+) {
   try {
     const result = await api.getInitialCards();
     result.forEach((data) => {
-      const card = new Card(data, cardSelector, handleImageClick);
+      const card = new Card(
+        data,
+        cardSelector,
+        handleImageClick,
+        currentUserId
+      );
       cardList.append(card.getView());
     });
   } catch (err) {

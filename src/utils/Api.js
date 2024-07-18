@@ -59,13 +59,13 @@ class Api {
   }
 
   async likeCard(cardId) {
-    return this._request(`/cards/likes/${cardId}`, {
+    return this._request(`/cards/${cardId}/likes`, {
       method: "PUT",
     });
   }
 
   async unlikeCard(cardId) {
-    return this._request(`/cards/likes/${cardId}`, {
+    return this._request(`/cards/${cardId}/likes`, {
       method: "DELETE",
     });
   }

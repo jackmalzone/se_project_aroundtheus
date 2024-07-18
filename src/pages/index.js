@@ -50,8 +50,11 @@ const userInfo = new UserInfo({
   avatarSelector: profileAvatar,
 });
 
+let currentUserId;
+
 async function handleEditFormSubmit(data) {
   try {
+    profileEditPopup.renderLoading(true);
     await api.updateProfile({
       name: data.name,
       about: data.description,
@@ -67,11 +70,14 @@ async function handleEditFormSubmit(data) {
     profileEditPopup.close();
   } catch (err) {
     console.error("Error updating profile:", err);
+  } finally {
+    profileEditPopup.renderLoading(false);
   }
 }
 
 async function handleAddFormSubmit(data) {
   try {
+    profileAddPopup.renderLoading(true);
     const cardData = await api.addCard({
       name: data.place,
       link: data.link,
@@ -85,11 +91,14 @@ async function handleAddFormSubmit(data) {
     profileAddPopup.close();
   } catch (err) {
     console.error("Error adding card:", err);
+  } finally {
+    profileAddPopup.renderLoading(false);
   }
 }
 
 async function handleAvatarFormSubmit(data) {
   try {
+    profileAvatarPopup.renderLoading(true);
     await api.updateAvatar(data.link);
 
     userInfo.setUserInfo({
@@ -101,6 +110,8 @@ async function handleAvatarFormSubmit(data) {
     profileAvatarPopup.close();
   } catch (err) {
     console.error("Error updating avatar:", err);
+  } finally {
+    profileAvatarPopup.renderLoading(false);
   }
 }
 
@@ -132,7 +143,7 @@ const cardSection = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const cardElement = createCard(item);
+      const cardElement = createCard(item, currentUserId);
       cardSection.addItem(cardElement, true);
     },
   },
@@ -140,8 +151,13 @@ const cardSection = new Section(
 );
 
 // CREATE CARD
-function createCard(data) {
-  const card = new Card(data, "#card-template", handleImageClick);
+function createCard(data, currentUserId) {
+  const card = new Card(
+    data,
+    "#card-template",
+    handleImageClick,
+    currentUserId
+  );
   return card.getView();
 }
 
@@ -172,11 +188,12 @@ profileAvatarButton.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     const userInfoData = await api.getUserInfo();
+    currentUserId = userInfoData._id;
     userInfo.setUserInfo(userInfoData);
 
     const initialCardsData = await api.getInitialCards();
     initialCardsData.forEach((data) => {
-      const cardElement = createCard(data);
+      const cardElement = createCard(data, currentUserId);
       cardSection.addItem(cardElement);
     });
   } catch (err) {
@@ -186,5 +203,3 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // // Initial render
 cardSection.renderItems();
-
-// Will add needs corrected in future
