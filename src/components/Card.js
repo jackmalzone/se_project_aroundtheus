@@ -13,6 +13,7 @@ export default class Card {
     this._currentUserId = currentUserId;
 
     console.log("Card Data:", data); // Debugging line
+    console.log("Card ID:", this._id); // Debugging line
     console.log("Likes Array:", this._likes); // Debugging line
 
     this._isLiked = this._likes.some(
@@ -45,12 +46,14 @@ export default class Card {
     try {
       if (this._isLiked) {
         const updatedCard = await api.unlikeCard(this._id);
+        console.log("Updated Card after unlike:", updatedCard);
         this._isLiked = updatedCard.likes.some(
           (user) => user._id === this._currentUserId
         );
         likeButton.classList.remove("card__like-button_active");
       } else {
         const updatedCard = await api.likeCard(this._id);
+        console.log("Updated Card after like:", updatedCard);
         this._isLiked = updatedCard.likes.some(
           (user) => user._id === this._currentUserId
         );
@@ -99,7 +102,9 @@ export async function renderInitialCards(
 ) {
   try {
     const result = await api.getInitialCards();
+    console.log("Initial Cards Data:", result);
     result.forEach((data) => {
+      console.log("Creating card with data:", data);
       const card = new Card(
         data,
         cardSelector,

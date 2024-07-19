@@ -152,6 +152,7 @@ const cardSection = new Section(
 
 // CREATE CARD
 function createCard(data, currentUserId) {
+  console.log("Creating card with user ID:", currentUserId);
   const card = new Card(
     data,
     "#card-template",
@@ -191,8 +192,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     currentUserId = userInfoData._id;
     userInfo.setUserInfo(userInfoData);
 
+    console.log("Current User ID:", currentUserId);
+
     const initialCardsData = await api.getInitialCards();
+
+    console.log("Initial Cards Data:", initialCardsData);
+
     initialCardsData.forEach((data) => {
+      console.log("Card Data:", data);
       const cardElement = createCard(data, currentUserId);
       cardSection.addItem(cardElement);
     });
@@ -201,5 +208,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// // Initial render
+// Initial render
 cardSection.renderItems();
