@@ -83,7 +83,7 @@ async function handleAddFormSubmit(data) {
       link: data.link,
     });
 
-    const cardElement = createCard(cardData);
+    const cardElement = createCard(cardData, currentUserId);
     cardSection.addItem(cardElement);
 
     profileAddForm.reset();
