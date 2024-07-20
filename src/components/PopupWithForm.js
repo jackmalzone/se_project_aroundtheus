@@ -9,7 +9,8 @@ export default class PopupWithForm extends Popup {
       this._popupForm.querySelectorAll(".modal__input")
     );
     this._submitButton = this._popupForm.querySelector(".modal__button");
-    this._submitButtonText = this._submitButton.textContent;
+    this._submitButtonText =
+      this._submitButton.childNodes[0].textContent.trim();
   }
 
   _getInputValues() {
@@ -17,33 +18,27 @@ export default class PopupWithForm extends Popup {
     this._inputs.forEach((input) => {
       this._inputValues[input.name] = input.value;
     });
-
     return this._inputValues;
   }
 
   setEventListeners() {
     super.setEventListeners();
 
-    this._submitHandler = async (evt) => {
+    this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
-
-      try {
-        await this._handleFormSubmit(this._getInputValues());
-        this.close();
-      } catch (err) {
-        console.error("Error submitting form:", err);
-      } finally {
-        this.renderLoading(false);
-      }
-    };
-    this._popupForm.addEventListener("submit", this._submitHandler);
+      this.renderLoading(true);
+      this._handleFormSubmit(this._getInputValues())
+        .then(() => this.close())
+        .catch((err) => console.error("Error submitting form:", err))
+        .finally(() => this.renderLoading(false));
+    });
   }
 
   renderLoading(isLoading) {
     if (isLoading) {
-      this._submitButton.textContent = "Saving...";
+      this._submitButton.childNodes[0].textContent = "Saving...";
     } else {
-      this._submitButton.textContent = this._submitButtonText;
+      this._submitButton.childNodes[0].textContent = this._submitButtonText;
     }
   }
 }

@@ -206,6 +206,28 @@
       </div>
     </div>
 
+    <!-- Confirmation Modal -->
+
+    <div class="modal modal-overlay" id="confirmation-modal">
+      <div class="modal__container">
+        <button
+          type="button"
+          class="modal__close"
+          id="modal-button-close"
+          aria-label="close confirmation pop-up"
+        >
+          <span class="sr-only">Close confirmation window</span>
+        </button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <form class="modal__form" id="confirmation-form">
+          <button class="modal__button" type="submit">
+            Yes
+            <span class="sr-only">Confirm deletion</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
     <!-- T E M P L A T E S -->
 
     <template id="card-template">

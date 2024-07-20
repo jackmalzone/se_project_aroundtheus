@@ -5,6 +5,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import {
   baseUrl,
@@ -115,6 +116,22 @@ async function handleAvatarFormSubmit(data) {
   }
 }
 
+function handleCardDelete(cardId) {
+  confirmationPopup.open(() => {
+    api
+      .deleteCard(cardId)
+      .then(() => {
+        const cardElement = document.querySelector(`[data-id='${cardId}']`);
+        if (cardElement) {
+          cardElement.remove();
+        }
+      })
+      .catch((err) => {
+        console.error("Error deleting card:", err);
+      });
+  });
+}
+
 // POPUP INIT
 const profileEditPopup = new PopupWithForm(
   "#profile-edit-modal",
@@ -132,11 +149,13 @@ const profileAvatarPopup = new PopupWithForm(
 );
 
 const profilePreviewPopup = new PopupWithImage("#profile-preview-modal");
+const confirmationPopup = new PopupWithConfirmation("#confirmation-modal");
 
 profileEditPopup.setEventListeners();
 profileAddPopup.setEventListeners();
 profileAvatarPopup.setEventListeners();
 profilePreviewPopup.setEventListeners();
+confirmationPopup.setEventListeners();
 
 // SECTION INIT
 const cardSection = new Section(
@@ -157,6 +176,7 @@ function createCard(data, currentUserId) {
     data,
     "#card-template",
     handleImageClick,
+    handleCardDelete,
     currentUserId
   );
   return card.getView();
