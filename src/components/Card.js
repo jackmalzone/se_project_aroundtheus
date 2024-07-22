@@ -55,16 +55,28 @@ export default class Card {
       if (this._isLiked) {
         const updatedCard = await api.unlikeCard(this._id);
         console.log("Updated Card after unlike:", updatedCard);
-        this._isLiked = updatedCard.likes.some(
-          (user) => user._id === this._currentUserId
-        );
+        // Check for the boolean status or appropriate response property
+        if (!("isLiked" in updatedCard)) {
+          console.error(
+            "Updated card data is missing 'isLiked' property.",
+            updatedCard
+          );
+          throw new Error("Updated card data is missing 'isLiked' property.");
+        }
+        this._isLiked = updatedCard.isLiked;
         likeButton.classList.remove("card__like-button_active");
       } else {
         const updatedCard = await api.likeCard(this._id);
         console.log("Updated Card after like:", updatedCard);
-        this._isLiked = updatedCard.likes.some(
-          (user) => user._id === this._currentUserId
-        );
+        // Check for the boolean status or appropriate response property
+        if (!("isLiked" in updatedCard)) {
+          console.error(
+            "Updated card data is missing 'isLiked' property.",
+            updatedCard
+          );
+          throw new Error("Updated card data is missing 'isLiked' property.");
+        }
+        this._isLiked = updatedCard.isLiked;
         likeButton.classList.add("card__like-button_active");
       }
     } catch (err) {

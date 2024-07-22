@@ -8,7 +8,10 @@ class Api {
 
   _checkResponse(res) {
     if (res.ok) {
-      return res.json();
+      return res.json().then((data) => {
+        console.log("API response data:", data);
+        return data;
+      });
     }
     return Promise.reject(`Error: ${res.status}`);
   }
@@ -61,15 +64,19 @@ class Api {
   }
 
   async likeCard(cardId) {
-    return this._request(`/cards/${cardId}/likes`, {
+    const response = await this._request(`/cards/${cardId}/likes`, {
       method: "PUT",
     });
+    // Mock response for demo purposes; replace with actual API response structure
+    return { isLiked: true, ...response };
   }
 
   async unlikeCard(cardId) {
-    return this._request(`/cards/${cardId}/likes`, {
+    const response = await this._request(`/cards/${cardId}/likes`, {
       method: "DELETE",
     });
+    // Mock response for demo purposes; replace with actual API response structure
+    return { isLiked: false, ...response };
   }
 }
 
