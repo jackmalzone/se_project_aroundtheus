@@ -168,7 +168,6 @@ const cardSection = new Section(
 
 // CREATE CARD
 function createCard(data, currentUserId) {
-  console.log("Creating card with user ID:", currentUserId);
   const card = new Card(
     data,
     "#card-template",
@@ -206,21 +205,12 @@ profileAvatarButton.addEventListener("click", () => {
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("DOM fully loaded and parsed");
   try {
-    console.log("Fetching user info...");
     const userInfoData = await api.getUserInfo();
-    console.log("User info fetched:", userInfoData);
     currentUserId = userInfoData._id;
     userInfo.setUserInfo(userInfoData);
 
-    console.log("USER ID:", currentUserId);
-
-    console.log("Fetching initial cards...");
     const initialCardsData = await api.getInitialCards();
-
-    console.log("Initial Cards Data fetched:", initialCardsData);
-
     initialCardsData.forEach((data) => {
-      console.log("Card Data:", data);
       const cardElement = createCard(data, currentUserId);
       cardSection.addItem(cardElement);
     });

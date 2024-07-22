@@ -8,18 +8,13 @@ class Api {
 
   _checkResponse(res) {
     if (res.ok) {
-      return res.json().then((data) => {
-        console.log("API response data:", data);
-        return data;
-      });
+      return res.json();
     }
     return Promise.reject(`Error: ${res.status}`);
   }
 
   async _request(endpoint, options = {}) {
     console.log("Making request to: ", `${this._baseUrl}${endpoint}`);
-    console.log("With options: ", options);
-    console.log("Headers: ", this._headers);
 
     const res = await fetch(`${this._baseUrl}${endpoint}`, {
       ...options,
@@ -67,7 +62,6 @@ class Api {
     const response = await this._request(`/cards/${cardId}/likes`, {
       method: "PUT",
     });
-    // Mock response for demo purposes; replace with actual API response structure
     return { isLiked: true, ...response };
   }
 
@@ -75,8 +69,11 @@ class Api {
     const response = await this._request(`/cards/${cardId}/likes`, {
       method: "DELETE",
     });
-    // Mock response for demo purposes; replace with actual API response structure
     return { isLiked: false, ...response };
+  }
+
+  async getAppInfo() {
+    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
   }
 }
 
