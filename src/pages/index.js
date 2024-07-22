@@ -51,7 +51,7 @@ const userInfo = new UserInfo({
   avatarSelector: profileAvatar,
 });
 
-let currentUserId;
+let currentUserId = null;
 
 async function handleEditFormSubmit(data) {
   try {
@@ -116,15 +116,12 @@ async function handleAvatarFormSubmit(data) {
   }
 }
 
-function handleCardDelete(cardId) {
+function handleCardDelete(card) {
   confirmationPopup.open(() => {
-    api
-      .deleteCard(cardId)
+    card
+      .deleteCard()
       .then(() => {
-        const cardElement = document.querySelector(`[data-id='${cardId}']`);
-        if (cardElement) {
-          cardElement.remove();
-        }
+        confirmationPopup.close();
       })
       .catch((err) => {
         console.error("Error deleting card:", err);
@@ -160,7 +157,7 @@ confirmationPopup.setEventListeners();
 // SECTION INIT
 const cardSection = new Section(
   {
-    items: initialCards,
+    items: [],
     renderer: (item) => {
       const cardElement = createCard(item, currentUserId);
       cardSection.addItem(cardElement, true);
@@ -207,16 +204,20 @@ profileAvatarButton.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  console.log("DOM fully loaded and parsed");
   try {
+    console.log("Fetching user info...");
     const userInfoData = await api.getUserInfo();
+    console.log("User info fetched:", userInfoData);
     currentUserId = userInfoData._id;
     userInfo.setUserInfo(userInfoData);
 
-    console.log("Current User ID:", currentUserId);
+    console.log("USER ID:", currentUserId);
 
+    console.log("Fetching initial cards...");
     const initialCardsData = await api.getInitialCards();
 
-    console.log("Initial Cards Data:", initialCardsData);
+    console.log("Initial Cards Data fetched:", initialCardsData);
 
     initialCardsData.forEach((data) => {
       console.log("Card Data:", data);

@@ -2,12 +2,19 @@ import api from "../utils/Api.js";
 import { cardList } from "../utils/constants";
 
 export default class Card {
-  constructor(data, cardSelector, handleImageClick, currentUserId) {
+  constructor(
+    data,
+    cardSelector,
+    handleImageClick,
+    handleCardDelete,
+    currentUserId
+  ) {
     this._name = data.name;
     this._link = data.link;
     this._alt = data.alt;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
+    this._handleCardDelete = handleCardDelete;
     this._id = data._id;
     this._likes = data.likes || [];
     this._currentUserId = currentUserId;
@@ -15,6 +22,7 @@ export default class Card {
     console.log("Card Data:", data); // Debugging line
     console.log("Card ID:", this._id); // Debugging line
     console.log("Likes Array:", this._likes); // Debugging line
+    console.log("Current User ID:", this._currentUserId);
 
     this._isLiked = this._likes.some(
       (user) => user._id === this._currentUserId
@@ -31,7 +39,7 @@ export default class Card {
     this._cardElement
       .querySelector(".card__delete-button")
       .addEventListener("click", () => {
-        this._handleDeleteButton();
+        this._handleCardDelete(this);
       });
 
     this._cardElement
@@ -64,7 +72,7 @@ export default class Card {
     }
   }
 
-  async _handleDeleteButton() {
+  async deleteCard() {
     try {
       await api.deleteCard(this._id);
       this._cardElement.remove();
@@ -90,6 +98,7 @@ export default class Card {
     if (this._isLiked) {
       likeButton.classList.add("card__like-button_active");
     }
+    this._cardElement.dataset.id = this._id;
     this._setEventListeners();
     return this._cardElement;
   }
@@ -109,7 +118,8 @@ export async function renderInitialCards(
         data,
         cardSelector,
         handleImageClick,
-        currentUserId
+        currentUserId,
+        handleCardDelete
       );
       cardList.append(card.getView());
     });

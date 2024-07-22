@@ -14,6 +14,8 @@ class Api {
   }
 
   async _request(endpoint, options = {}) {
+    console.log("Making request to: ", `${this._baseUrl}${endpoint}`);
+    console.log("With options: ", options);
     console.log("Headers: ", this._headers);
 
     const res = await fetch(`${this._baseUrl}${endpoint}`, {
