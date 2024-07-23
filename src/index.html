@@ -25,24 +25,11 @@
       </header>
       <main class="content">
         <section class="profile">
-          <!-- edit avatar -->
-          <button
-            class="profile__button profile__button_type_avatar"
-            id="profile-avatar-button"
-            type="button"
-            aria-label="Edit Profile Picture"
-          >
-            <img
-              src="<%=require('./images/jacques-cousteau.jpg')%>"
-              alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up."
-              class="profile__image"
-              id="profile-avatar"
-            />
-            <div class="profile__avatar-overlay"></div>
-            <span class="sr-only">Edit Profile Picture</span>
-          </button>
-          <!-- overlay -->
-          <div class="profile__image-overlay"></div>
+          <img
+            src="<%=require('./images/jacques-cousteau.jpg')%>"
+            alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up."
+            class="profile__image"
+          />
           <div class="profile__info">
             <h1 class="profile__name" id="profile-name">Jacques Cousteau</h1>
             <button
@@ -87,10 +74,10 @@
           <span class="sr-only">Close edit post window</span>
         </button>
         <h2 class="modal__heading">Edit Profile</h2>
-        <form class="modal__form" id="edit-card-form">
+        <form class="modal__form">
           <input
             type="text"
-            name="name"
+            name="title"
             class="modal__input"
             id="modal-input-name"
             placeholder="Name"
@@ -159,36 +146,6 @@
       </div>
     </div>
 
-    <!-- Avatar Modal -->
-    <div class="modal modal-overlay" id="profile-avatar-modal">
-      <div class="modal__container">
-        <button
-          type="button"
-          class="modal__close"
-          id="modal-button-close"
-          aria-label="close add image pop-up"
-        >
-          <span class="sr-only">Close new avatar window</span>
-        </button>
-        <h2 class="modal__heading">Change Profile Picture</h2>
-        <form class="modal__form" id="edit-avatar-form">
-          <input
-            type="url"
-            name="link"
-            class="modal__input"
-            id="modal-input-link"
-            placeholder="Image URL"
-            required
-          />
-          <span class="modal__error" id="modal-input-link-error"></span>
-          <button class="modal__button" id="modal-button-save" type="submit">
-            Save
-            <span class="sr-only">Save and upload avatar</span>
-          </button>
-        </form>
-      </div>
-    </div>
-
     <!-- Image Preview Modal -->
     <div class="modal" id="profile-preview-modal">
       <div class="modal__container modal__container_type_preview">
@@ -203,28 +160,6 @@
 
         <img src="" alt="" class="modal__image" />
         <h2 class="modal__heading modal__heading_type_preview"></h2>
-      </div>
-    </div>
-
-    <!-- Confirmation Modal -->
-
-    <div class="modal modal-overlay" id="confirmation-modal">
-      <div class="modal__container">
-        <button
-          type="button"
-          class="modal__close"
-          id="modal-button-close"
-          aria-label="close confirmation pop-up"
-        >
-          <span class="sr-only">Close confirmation window</span>
-        </button>
-        <h2 class="modal__heading">Are you sure?</h2>
-        <form class="modal__form" id="confirmation-form">
-          <button class="modal__button" type="submit">
-            Yes
-            <span class="sr-only">Confirm deletion</span>
-          </button>
-        </form>
       </div>
     </div>
 

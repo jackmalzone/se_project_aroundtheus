@@ -145,8 +145,8 @@
   border-bottom: 1px solid #ff0000;
 }
 
-/* .modal__input-error_active {
-} */
+.modal__input-error_active {
+}
 
 .modal__button:hover {
   transform: scale(1.01);
