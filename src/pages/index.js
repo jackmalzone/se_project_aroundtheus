@@ -10,7 +10,6 @@ import UserInfo from "../components/UserInfo.js";
 import {
   baseUrl,
   authToken,
-  initialCards,
   validationSettings,
   profileEditForm,
   profileAddForm,
