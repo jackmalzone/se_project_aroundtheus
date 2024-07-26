@@ -8,9 +8,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import {
-  baseUrl,
-  authToken,
-  initialCards,
   validationSettings,
   profileEditForm,
   profileAddForm,
@@ -26,23 +23,33 @@ import {
 } from "../utils/constants.js";
 
 // FORM VALIDATION INIT
-const profileEditFormValidator = new FormValidator(
-  validationSettings,
-  profileEditForm
-);
-const profileAddFormValidator = new FormValidator(
-  validationSettings,
-  profileAddForm
-);
+const formValidators = {};
 
-const profileAvatarFormValidator = new FormValidator(
-  validationSettings,
-  profileAvatarForm
-);
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute("name");
 
-profileEditFormValidator.enableValidation();
-profileAddFormValidator.enableValidation();
-profileAvatarFormValidator.enableValidation();
+    // Store the validator using the name of the form
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationSettings);
+
+async function handleSubmit(request, popupInstance, loadingText = "Saving...") {
+  try {
+    popupInstance.renderLoading(true, loadingText);
+    await request();
+    popupInstance.close();
+  } catch (err) {
+    console.error("Error in handleSubmit:", err);
+  } finally {
+    popupInstance.renderLoading(false);
+  }
+}
 
 // USER INFO INIT
 const userInfo = new UserInfo({
@@ -53,67 +60,36 @@ const userInfo = new UserInfo({
 
 let currentUserId = null;
 
-async function handleEditFormSubmit(data) {
-  try {
-    profileEditPopup.renderLoading(true);
-    await api.updateProfile({
-      name: data.name,
-      about: data.description,
-    });
-
-    userInfo.setUserInfo({
-      name: data.name,
-      about: data.description,
-    });
-
-    profileEditForm.reset();
-    profileEditFormValidator.disableButton();
-    profileEditPopup.close();
-  } catch (err) {
-    console.error("Error updating profile:", err);
-  } finally {
-    profileEditPopup.renderLoading(false);
+function handleEditFormSubmit(inputValues) {
+  async function makeRequest() {
+    console.log("Updating profile with values:", inputValues);
+    const updatedValues = {
+      name: inputValues.name,
+      about: inputValues.description,
+    };
+    const userData = await api.updateProfile(updatedValues);
+    userInfo.setUserInfo(userData);
   }
+  handleSubmit(makeRequest, profileEditPopup);
 }
 
-async function handleAddFormSubmit(data) {
-  try {
-    profileAddPopup.renderLoading(true);
-    const cardData = await api.addCard({
-      name: data.place,
-      link: data.link,
-    });
-
+function handleAddFormSubmit(inputValues) {
+  async function makeRequest() {
+    console.log("Adding card with values:", inputValues);
+    const cardData = await api.addCard(inputValues);
     const cardElement = createCard(cardData, currentUserId);
     cardSection.addItem(cardElement);
-
-    profileAddForm.reset();
-    profileAddFormValidator.disableButton();
-    profileAddPopup.close();
-  } catch (err) {
-    console.error("Error adding card:", err);
-  } finally {
-    profileAddPopup.renderLoading(false);
   }
+  handleSubmit(makeRequest, profileAddPopup);
 }
 
-async function handleAvatarFormSubmit(data) {
-  try {
-    profileAvatarPopup.renderLoading(true);
-    await api.updateAvatar(data.link);
-
-    userInfo.setUserInfo({
-      avatar: data.link,
-    });
-
-    profileAvatarForm.reset();
-    profileAvatarFormValidator.disableButton();
-    profileAvatarPopup.close();
-  } catch (err) {
-    console.error("Error updating avatar:", err);
-  } finally {
-    profileAvatarPopup.renderLoading(false);
+function handleAvatarFormSubmit(inputValues) {
+  async function makeRequest() {
+    console.log("Updating avatar with values:", inputValues);
+    const userData = await api.updateAvatar(inputValues.link);
+    userInfo.setUserInfo(userData);
   }
+  handleSubmit(makeRequest, profileAvatarPopup);
 }
 
 function handleCardDelete(card) {
@@ -127,6 +103,28 @@ function handleCardDelete(card) {
         console.error("Error deleting card:", err);
       });
   });
+}
+
+async function handleLikeButton(card) {
+  try {
+    if (card._isLiked) {
+      // Unlike card using API
+      const updatedCard = await api.unlikeCard(card._id);
+      card._isLiked = updatedCard.likes.some(
+        (user) => user._id === card._currentUserId
+      );
+      card._likeButton.classList.remove("card__like-button_active");
+    } else {
+      // Like card using API
+      const updatedCard = await api.likeCard(card._id);
+      card._isLiked = updatedCard.likes.some(
+        (user) => user._id === card._currentUserId
+      );
+      card._likeButton.classList.add("card__like-button_active");
+    }
+  } catch (err) {
+    console.error("Error liking/unliking card:", err);
+  }
 }
 
 // POPUP INIT
@@ -168,11 +166,13 @@ const cardSection = new Section(
 
 // CREATE CARD
 function createCard(data, currentUserId) {
+  console.log("Creating card with data:", data);
   const card = new Card(
     data,
     "#card-template",
     handleImageClick,
     handleCardDelete,
+    handleLikeButton,
     currentUserId
   );
   return card.getView();
@@ -183,22 +183,32 @@ function handleImageClick(link, alt, name) {
   profilePreviewPopup.open(link, alt, name);
 }
 
+async function renderInitialCards() {
+  try {
+    const result = await api.getInitialCards();
+    console.log("Fetched initial cards:", result);
+    cardSection.renderItems(result);
+  } catch (err) {
+    console.error("Error loading initial cards:", err);
+  }
+}
+
 // EVENT LISTENERS
 profileEditButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
-
-  profileInputName.value = userData.name;
-  profileInputDescription.value = userData.about;
-
-  profileEditFormValidator.resetValidation();
+  console.log("User data for editing:", userData);
+  profileEditPopup.setInputValues(userData); // Use setInputValues method
+  formValidators["profile-edit-form"].resetValidation();
   profileEditPopup.open();
 });
 
 profileAddButton.addEventListener("click", () => {
+  formValidators["profile-add-form"].resetValidation();
   profileAddPopup.open();
 });
 
 profileAvatarButton.addEventListener("click", () => {
+  formValidators["profile-avatar-form"].resetValidation();
   profileAvatarPopup.open();
 });
 
@@ -207,17 +217,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const userInfoData = await api.getUserInfo();
     currentUserId = userInfoData._id;
-    userInfo.setUserInfo(userInfoData);
-
-    const initialCardsData = await api.getInitialCards();
-    initialCardsData.forEach((data) => {
-      const cardElement = createCard(data, currentUserId);
-      cardSection.addItem(cardElement);
+    userInfo.setUserInfo({
+      name: userInfoData.name,
+      description: userInfoData.about,
+      avatar: userInfoData.avatar,
     });
+
+    console.log("USER ID:", currentUserId);
+
+    await renderInitialCards();
   } catch (err) {
     console.error("Error during initial load:", err);
   }
 });
-
-// Initial render
-cardSection.renderItems();

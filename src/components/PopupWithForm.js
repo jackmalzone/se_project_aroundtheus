@@ -21,6 +21,13 @@ export default class PopupWithForm extends Popup {
     return this._inputValues;
   }
 
+  setInputValues(data) {
+    console.log("Setting input values with data:", data);
+    this._inputs.forEach((input) => {
+      input.value = data[input.name] || "";
+    });
+  }
+
   setEventListeners() {
     super.setEventListeners();
 

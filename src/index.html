@@ -44,7 +44,7 @@
           <!-- overlay -->
           <div class="profile__image-overlay"></div>
           <div class="profile__info">
-            <h1 class="profile__name" id="profile-name">Jacques Cousteau</h1>
+            <h1 class="profile__name" id="profile-name">Set your Name</h1>
             <button
               class="profile__button profile__button_type_edit"
               id="profile-edit-button"
@@ -54,7 +54,7 @@
               <span class="sr-only">Edit Profile</span>
             </button>
             <p class="profile__description" id="profile-description">
-              Explorer
+              Add a description of yourself
             </p>
           </div>
           <button
@@ -87,7 +87,7 @@
           <span class="sr-only">Close edit post window</span>
         </button>
         <h2 class="modal__heading">Edit Profile</h2>
-        <form class="modal__form" id="edit-card-form">
+        <form name="profile-edit-form" class="modal__form" id="edit-card-form">
           <input
             type="text"
             name="name"
@@ -101,7 +101,7 @@
           <span class="modal__error" id="modal-input-name-error"></span>
           <input
             type="text"
-            name="description"
+            name="about"
             class="modal__input"
             id="modal-input-description"
             placeholder="Description"
@@ -130,7 +130,7 @@
           <span class="sr-only">Close new post window</span>
         </button>
         <h2 class="modal__heading">New Place</h2>
-        <form class="modal__form" id="add-card-form">
+        <form name="profile-add-form" class="modal__form" id="add-card-form">
           <input
             type="text"
             name="place"
@@ -171,7 +171,11 @@
           <span class="sr-only">Close new avatar window</span>
         </button>
         <h2 class="modal__heading">Change Profile Picture</h2>
-        <form class="modal__form" id="edit-avatar-form">
+        <form
+          name="profile-avatar-form"
+          class="modal__form"
+          id="edit-avatar-form"
+        >
           <input
             type="url"
             name="link"
