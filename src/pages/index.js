@@ -15,6 +15,9 @@ import {
   profileName,
   profileAbout,
   profileAvatar,
+  loadingScreen,
+  loadingText,
+  loadingMessages,
 } from "../utils/constants.js";
 
 // FORM VALIDATION INIT
@@ -38,6 +41,9 @@ async function handleSubmit(request, popupInstance, loadingText = "Saving...") {
     popupInstance.renderLoading(true, loadingText);
     await request();
     popupInstance.close();
+    if (popupInstance._popupForm) {
+      popupInstance._popupForm.reset(); // FORM RESET
+    }
   } catch (err) {
     console.error("Error in handleSubmit:", err);
   } finally {
@@ -46,11 +52,14 @@ async function handleSubmit(request, popupInstance, loadingText = "Saving...") {
 }
 
 // USER INFO INIT
-const userInfo = new UserInfo({
-  nameSelector: profileName,
-  aboutSelector: profileAbout,
-  avatarSelector: profileAvatar,
-});
+const userInfo = new UserInfo(
+  {
+    nameSelector: profileName,
+    aboutSelector: profileAbout,
+    avatarSelector: profileAvatar,
+  },
+  api
+);
 
 let currentUserId = null;
 
@@ -72,7 +81,7 @@ function handleAddFormSubmit(inputValues) {
 
     const cardData = await api.addCard(inputValues);
     const cardElement = createCard(cardData, currentUserId);
-    cardSection.addItem(cardElement);
+    cardSection.addItem(cardElement, true);
   }
   return handleSubmit(makeRequest, profileAddPopup);
 }
@@ -97,32 +106,6 @@ function handleCardDelete(card) {
         console.error("Error deleting card:", err);
       });
   });
-}
-
-async function handleLikeButton(card) {
-  try {
-    let updatedCard;
-    if (card._isLiked) {
-      // UNLIKE
-      updatedCard = await api.unlikeCard(card._id);
-    } else {
-      // LIKE
-      updatedCard = await api.likeCard(card._id);
-    }
-
-    if (updatedCard.isLiked !== undefined) {
-      card._isLiked = updatedCard.isLiked;
-      if (card._isLiked) {
-        card._likeButton.classList.add("card__like-button_active");
-      } else {
-        card._likeButton.classList.remove("card__like-button_active");
-      }
-    } else {
-      throw new Error("Updated card data is missing 'isLiked' property.");
-    }
-  } catch (err) {
-    console.error("Error liking/unliking card:", err);
-  }
 }
 
 // POPUP INIT
@@ -156,7 +139,7 @@ const cardSection = new Section(
     items: [],
     renderer: (item) => {
       const cardElement = createCard(item, currentUserId);
-      cardSection.addItem(cardElement, true);
+      cardSection.addItem(cardElement);
     },
   },
   ".cards__list"
@@ -170,7 +153,7 @@ function createCard(data, currentUserId) {
     "#card-template",
     handleImageClick,
     handleCardDelete,
-    handleLikeButton,
+    api,
     currentUserId
   );
   return card.getView();
@@ -211,6 +194,9 @@ profileAvatarButton.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  loadingText.textContent =
+    loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+
   console.log("DOM fully loaded and parsed");
   try {
     const userInfoData = await api.getUserInfo();
@@ -226,5 +212,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await renderInitialCards();
   } catch (err) {
     console.error("Error during initial load:", err);
+  } finally {
+    loadingScreen.classList.add("hidden");
   }
 });

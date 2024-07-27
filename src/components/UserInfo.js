@@ -1,10 +1,9 @@
-import api from "../utils/Api.js";
-
 export default class UserInfo {
-  constructor({ nameSelector, aboutSelector, avatarSelector }) {
+  constructor({ nameSelector, aboutSelector, avatarSelector }, api) {
     this._nameElement = document.querySelector(nameSelector);
     this._aboutElement = document.querySelector(aboutSelector);
     this._avatarElement = document.querySelector(avatarSelector);
+    this._api = api;
 
     if (!this._nameElement) {
       console.error(`Element not found for selector: ${nameSelector}`);

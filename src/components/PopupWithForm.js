@@ -32,12 +32,7 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      const result = this._handleFormSubmit(this._getInputValues());
-      if (result && typeof result.then === "function") {
-        result.then(() => this.close()).catch(console.error);
-      } else {
-        console.error("handleFormSubmit did not return a promise");
-      }
+      this._handleFormSubmit(this._getInputValues());
     });
   }
 

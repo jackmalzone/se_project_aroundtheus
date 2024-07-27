@@ -1,12 +1,10 @@
-import api from "../utils/Api.js";
-
 export default class Card {
   constructor(
     data,
     cardSelector,
     handleImageClick,
     handleCardDelete,
-    handleLikeButton,
+    api,
     currentUserId
   ) {
     this._name = data.name;
@@ -15,7 +13,6 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleCardDelete = handleCardDelete;
-    this._handleLikeButton = handleLikeButton;
     this._id = data._id;
     this._likes = data.likes || [];
     this._currentUserId = currentUserId;
@@ -32,7 +29,7 @@ export default class Card {
 
   _setEventListeners() {
     this._likeButton.addEventListener("click", () => {
-      this._handleLikeButton(this);
+      this.toggleLike();
     });
 
     this._trashButton.addEventListener("click", () => {
@@ -42,6 +39,39 @@ export default class Card {
     this._cardImage.addEventListener("click", () => {
       this._handleImageClick(this._link, this._alt, this._name);
     });
+  }
+
+  async toggleLike() {
+    try {
+      let updatedCard;
+      if (this._isLiked) {
+        // UNLIKE
+        updatedCard = await this._api.unlikeCard(this._id);
+      } else {
+        // LIKE
+        updatedCard = await this._api.likeCard(this._id);
+      }
+
+      console.log("Updated Card after like/unlike:", updatedCard);
+
+      // Check if the 'isLiked' property is present in the updatedCard object
+      if (updatedCard.isLiked !== undefined) {
+        this._isLiked = updatedCard.isLiked;
+        this._updateLikeButton();
+      } else {
+        throw new Error("Updated card data is missing 'isLiked' property.");
+      }
+    } catch (err) {
+      console.error("Error liking/unliking card:", err);
+    }
+  }
+
+  _updateLikeButton() {
+    if (this._isLiked) {
+      this._likeButton.classList.add("card__like-button_active");
+    } else {
+      this._likeButton.classList.remove("card__like-button_active");
+    }
   }
 
   async deleteCard() {
@@ -65,10 +95,7 @@ export default class Card {
     this._cardImage.alt = this._alt;
     this._cardCaption.textContent = this._name;
 
-    if (this._isLiked) {
-      this._likeButton.classList.add("card__like-button_active");
-    }
-
+    this._updateLikeButton();
     this._cardElement.dataset.id = this._id;
     this._setEventListeners();
 

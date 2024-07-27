@@ -101,3 +101,15 @@ export const validationSettings = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__input-error_active",
 };
+
+// Misc
+
+export const loadingScreen = document.getElementById("loading-screen");
+export const loadingText = document.getElementById("loading-text");
+export const loadingMessages = [
+  "exploring...",
+  "navigating...",
+  "discovering...",
+  "traveling...",
+  "adventuring...",
+];
