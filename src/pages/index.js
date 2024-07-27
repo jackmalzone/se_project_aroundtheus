@@ -9,17 +9,12 @@ import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import {
   validationSettings,
-  profileEditForm,
-  profileAddForm,
-  profileAvatarForm,
   profileEditButton,
   profileAddButton,
   profileAvatarButton,
   profileName,
-  profileDescription,
+  profileAbout,
   profileAvatar,
-  profileInputName,
-  profileInputDescription,
 } from "../utils/constants.js";
 
 // FORM VALIDATION INIT
@@ -31,7 +26,6 @@ const enableValidation = (config) => {
     const validator = new FormValidator(config, formElement);
     const formName = formElement.getAttribute("name");
 
-    // Store the validator using the name of the form
     formValidators[formName] = validator;
     validator.enableValidation();
   });
@@ -54,7 +48,7 @@ async function handleSubmit(request, popupInstance, loadingText = "Saving...") {
 // USER INFO INIT
 const userInfo = new UserInfo({
   nameSelector: profileName,
-  aboutSelector: profileDescription,
+  aboutSelector: profileAbout,
   avatarSelector: profileAvatar,
 });
 
@@ -63,24 +57,24 @@ let currentUserId = null;
 function handleEditFormSubmit(inputValues) {
   async function makeRequest() {
     console.log("Updating profile with values:", inputValues);
-    const updatedValues = {
+    const userData = await api.updateProfile({
       name: inputValues.name,
-      about: inputValues.description,
-    };
-    const userData = await api.updateProfile(updatedValues);
+      about: inputValues.about,
+    });
     userInfo.setUserInfo(userData);
   }
-  handleSubmit(makeRequest, profileEditPopup);
+  return handleSubmit(makeRequest, profileEditPopup);
 }
 
 function handleAddFormSubmit(inputValues) {
   async function makeRequest() {
     console.log("Adding card with values:", inputValues);
+
     const cardData = await api.addCard(inputValues);
     const cardElement = createCard(cardData, currentUserId);
     cardSection.addItem(cardElement);
   }
-  handleSubmit(makeRequest, profileAddPopup);
+  return handleSubmit(makeRequest, profileAddPopup);
 }
 
 function handleAvatarFormSubmit(inputValues) {
@@ -89,7 +83,7 @@ function handleAvatarFormSubmit(inputValues) {
     const userData = await api.updateAvatar(inputValues.link);
     userInfo.setUserInfo(userData);
   }
-  handleSubmit(makeRequest, profileAvatarPopup);
+  return handleSubmit(makeRequest, profileAvatarPopup);
 }
 
 function handleCardDelete(card) {
@@ -107,20 +101,24 @@ function handleCardDelete(card) {
 
 async function handleLikeButton(card) {
   try {
+    let updatedCard;
     if (card._isLiked) {
-      // Unlike card using API
-      const updatedCard = await api.unlikeCard(card._id);
-      card._isLiked = updatedCard.likes.some(
-        (user) => user._id === card._currentUserId
-      );
-      card._likeButton.classList.remove("card__like-button_active");
+      // UNLIKE
+      updatedCard = await api.unlikeCard(card._id);
     } else {
-      // Like card using API
-      const updatedCard = await api.likeCard(card._id);
-      card._isLiked = updatedCard.likes.some(
-        (user) => user._id === card._currentUserId
-      );
-      card._likeButton.classList.add("card__like-button_active");
+      // LIKE
+      updatedCard = await api.likeCard(card._id);
+    }
+
+    if (updatedCard.isLiked !== undefined) {
+      card._isLiked = updatedCard.isLiked;
+      if (card._isLiked) {
+        card._likeButton.classList.add("card__like-button_active");
+      } else {
+        card._likeButton.classList.remove("card__like-button_active");
+      }
+    } else {
+      throw new Error("Updated card data is missing 'isLiked' property.");
     }
   } catch (err) {
     console.error("Error liking/unliking card:", err);
@@ -197,7 +195,7 @@ async function renderInitialCards() {
 profileEditButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
   console.log("User data for editing:", userData);
-  profileEditPopup.setInputValues(userData); // Use setInputValues method
+  profileEditPopup.setInputValues(userData);
   formValidators["profile-edit-form"].resetValidation();
   profileEditPopup.open();
 });
@@ -219,7 +217,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     currentUserId = userInfoData._id;
     userInfo.setUserInfo({
       name: userInfoData.name,
-      description: userInfoData.about,
+      about: userInfoData.about,
       avatar: userInfoData.avatar,
     });
 

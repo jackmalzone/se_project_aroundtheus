@@ -78,7 +78,7 @@ export let isMouseDownOnModal = false;
 
 // Profile Data
 export const profileName = "#profile-name";
-export const profileDescription = "#profile-description";
+export const profileAbout = "#profile-about";
 export const cardPreviewImage =
   profilePreviewModal.querySelector(".modal__image");
 export const cardPreviewCaption =
@@ -86,9 +86,7 @@ export const cardPreviewCaption =
 
 // Form Data
 export const profileInputName = document.querySelector("#modal-input-name");
-export const profileInputDescription = document.querySelector(
-  "#modal-input-description"
-);
+export const profileInputAbout = document.querySelector("#modal-input-about");
 export const profileInputname =
   profileAddForm.querySelector("#modal-input-name");
 export const profileInputLink =

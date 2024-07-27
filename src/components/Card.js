@@ -1,3 +1,5 @@
+import api from "../utils/Api.js";
+
 export default class Card {
   constructor(
     data,
@@ -20,6 +22,7 @@ export default class Card {
     this._isLiked = this._likes.some(
       (user) => user._id === this._currentUserId
     );
+    this._api = api;
   }
 
   _getTemplate() {
@@ -39,6 +42,16 @@ export default class Card {
     this._cardImage.addEventListener("click", () => {
       this._handleImageClick(this._link, this._alt, this._name);
     });
+  }
+
+  async deleteCard() {
+    try {
+      await this._api.deleteCard(this._id);
+      this._cardElement.remove();
+      this._cardElement = null;
+    } catch (err) {
+      console.error("Error deleting card:", err);
+    }
   }
 
   getView() {

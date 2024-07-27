@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Jack Malzone" />
     <meta
-      name="description"
+      name="about"
       content="Explore the picturesque landscapes of America with 'Around The U.S.', an interactive web platform where users can post photos, like and collect images of scenic locations, and personalize their profiles. Discover and connect with the beauty of the U.S. through the lens of fellow travelers and photography enthusiasts."
     />
     <meta
@@ -53,8 +53,8 @@
             >
               <span class="sr-only">Edit Profile</span>
             </button>
-            <p class="profile__description" id="profile-description">
-              Add a description of yourself
+            <p class="profile__about" id="profile-about">
+              Add a about of yourself
             </p>
           </div>
           <button
@@ -103,13 +103,13 @@
             type="text"
             name="about"
             class="modal__input"
-            id="modal-input-description"
+            id="modal-input-about"
             placeholder="Description"
             minlength="2"
             maxlength="200"
             required
           />
-          <span class="modal__error" id="modal-input-description-error"></span>
+          <span class="modal__error" id="modal-input-about-error"></span>
           <button class="modal__button" id="modal-button-save" type="submit">
             Save
             <span class="sr-only">Save Profile</span>
@@ -133,7 +133,7 @@
         <form name="profile-add-form" class="modal__form" id="add-card-form">
           <input
             type="text"
-            name="place"
+            name="name"
             class="modal__input"
             id="modal-input-place"
             placeholder="Place"

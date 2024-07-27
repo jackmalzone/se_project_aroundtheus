@@ -63,7 +63,7 @@
   display: grid;
   grid-template-areas:
     "title button"
-    "description description";
+    "about about";
   grid-template-columns: minmax(auto, 375px) auto;
   justify-content: space-between;
   align-items: center;
@@ -97,8 +97,8 @@
   transition: background 0.3s linear;
 }
 
-.profile__description {
-  grid-area: description;
+.profile__about {
+  grid-area: about;
   margin: 0;
   max-width: 373px;
   font-family: "Inter", Arial, sans-serif;
@@ -173,7 +173,7 @@
     padding: 0;
   }
 
-  .profile__description {
+  .profile__about {
     font-size: 16px;
   }
 
@@ -236,7 +236,7 @@
     right: 0px;
   }
 
-  .profile__description {
+  .profile__about {
     font-size: 14px;
     margin: 0;
   }
