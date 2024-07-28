@@ -10,6 +10,7 @@
 - Features
 - Figma
 - Responsive Design
+- JavaScript Features
 - Technologies Used
 - Setup
 - Contributing
@@ -34,10 +35,11 @@
 - **Photo Sharing:** Users can post images of their travels across the United States.
 - **Likes System:** Users can like photos posted by others, curating a collection of favorites.
 - **Profile Customization:** Users can add a personal touch to their profiles by adjusting their information and avatar.
+- **Loading Screen:** A custom loading screen with a logo and travel-related messages to enhance user experience.
 
 **Figma**
 
-- [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)
+- [Link to the project on Figma](https://www.figma.com/file/E5x6ib3osaUUNwLRRAsTDX/Sprint-9_-Applied-JavaScript-?t=3hvVWRz9LUFsxyNn-6)
 
 ## Responsive Design
 
@@ -111,7 +113,7 @@ We are committed to continually enhancing the user experience and feature set of
 - **Advanced Search Functionality:** Introduce an advanced search to filter images by location, popularity, or date, making it easier for users to find the content they are interested in.
 - **Personalized User Galleries:** Enable users to create and share personalized galleries, organizing photos based on themes or trips.
 - **Mobile App Development:** Expand the platform's reach by developing a mobile application for iOS and Android to allow users to post and interact with content on-the-go.
-- **Dark Mode:** Provide a dark mode option for reduced eye strain and improved accessibility in low-light conditions.
+- **Light Mode:** Provide a light mode option for improved accessibility in bright lighting.
 - **Performance Optimization:** Continue to optimize the site's performance, particularly image loading times, for a smoother and faster user experience.
 - **Accessibility Improvements:** Ensure the site is fully accessible by conducting thorough accessibility audits and addressing any issues to comply with WCAG guidelines.
 
