@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Jack Malzone" />
     <meta
-      name="description"
+      name="about"
       content="Explore the picturesque landscapes of America with 'Around The U.S.', an interactive web platform where users can post photos, like and collect images of scenic locations, and personalize their profiles. Discover and connect with the beauty of the U.S. through the lens of fellow travelers and photography enthusiasts."
     />
     <meta
@@ -15,6 +15,14 @@
     <title>Around The U.S.</title>
   </head>
   <body>
+    <div class="loading-screen" id="loading-screen">
+      <img
+        src="<%=require('./images/planet-illustration.png')%>"
+        alt="Loading..."
+        class="loading-screen__image"
+      />
+      <p class="loading-screen__text" id="loading-text">Loading...</p>
+    </div>
     <div class="page">
       <header class="header">
         <img
@@ -25,13 +33,26 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img
-            src="<%=require('./images/jacques-cousteau.jpg')%>"
-            alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up."
-            class="profile__image"
-          />
+          <!-- edit avatar -->
+          <button
+            class="profile__button profile__button_type_avatar"
+            id="profile-avatar-button"
+            type="button"
+            aria-label="Edit Profile Picture"
+          >
+            <img
+              src="<%=require('./images/jacques-cousteau.jpg')%>"
+              alt="Portrait of a smiling Jacques Cousteau wearing a red beanie and button up."
+              class="profile__image"
+              id="profile-avatar"
+            />
+            <div class="profile__avatar-overlay"></div>
+            <span class="sr-only">Edit Profile Picture</span>
+          </button>
+          <!-- overlay -->
+          <div class="profile__image-overlay"></div>
           <div class="profile__info">
-            <h1 class="profile__name" id="profile-name">Jacques Cousteau</h1>
+            <h1 class="profile__name" id="profile-name">Set your Name</h1>
             <button
               class="profile__button profile__button_type_edit"
               id="profile-edit-button"
@@ -40,8 +61,8 @@
             >
               <span class="sr-only">Edit Profile</span>
             </button>
-            <p class="profile__description" id="profile-description">
-              Explorer
+            <p class="profile__about" id="profile-about">
+              Add a about of yourself
             </p>
           </div>
           <button
@@ -74,10 +95,10 @@
           <span class="sr-only">Close edit post window</span>
         </button>
         <h2 class="modal__heading">Edit Profile</h2>
-        <form class="modal__form">
+        <form name="profile-edit-form" class="modal__form" id="edit-card-form">
           <input
             type="text"
-            name="title"
+            name="name"
             class="modal__input"
             id="modal-input-name"
             placeholder="Name"
@@ -88,15 +109,15 @@
           <span class="modal__error" id="modal-input-name-error"></span>
           <input
             type="text"
-            name="description"
+            name="about"
             class="modal__input"
-            id="modal-input-description"
+            id="modal-input-about"
             placeholder="Description"
             minlength="2"
             maxlength="200"
             required
           />
-          <span class="modal__error" id="modal-input-description-error"></span>
+          <span class="modal__error" id="modal-input-about-error"></span>
           <button class="modal__button" id="modal-button-save" type="submit">
             Save
             <span class="sr-only">Save Profile</span>
@@ -117,10 +138,10 @@
           <span class="sr-only">Close new post window</span>
         </button>
         <h2 class="modal__heading">New Place</h2>
-        <form class="modal__form" id="add-card-form">
+        <form name="profile-add-form" class="modal__form" id="add-card-form">
           <input
             type="text"
-            name="place"
+            name="name"
             class="modal__input"
             id="modal-input-place"
             placeholder="Place"
@@ -146,6 +167,40 @@
       </div>
     </div>
 
+    <!-- Avatar Modal -->
+    <div class="modal modal-overlay" id="profile-avatar-modal">
+      <div class="modal__container">
+        <button
+          type="button"
+          class="modal__close"
+          id="modal-button-close"
+          aria-label="close add image pop-up"
+        >
+          <span class="sr-only">Close new avatar window</span>
+        </button>
+        <h2 class="modal__heading">Change Profile Picture</h2>
+        <form
+          name="profile-avatar-form"
+          class="modal__form"
+          id="edit-avatar-form"
+        >
+          <input
+            type="url"
+            name="link"
+            class="modal__input"
+            id="modal-input-link"
+            placeholder="Image URL"
+            required
+          />
+          <span class="modal__error" id="modal-input-link-error"></span>
+          <button class="modal__button" id="modal-button-save" type="submit">
+            Save
+            <span class="sr-only">Save and upload avatar</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
     <!-- Image Preview Modal -->
     <div class="modal" id="profile-preview-modal">
       <div class="modal__container modal__container_type_preview">
@@ -160,6 +215,28 @@
 
         <img src="" alt="" class="modal__image" />
         <h2 class="modal__heading modal__heading_type_preview"></h2>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+
+    <div class="modal modal-overlay" id="confirmation-modal">
+      <div class="modal__container">
+        <button
+          type="button"
+          class="modal__close"
+          id="modal-button-close"
+          aria-label="close confirmation pop-up"
+        >
+          <span class="sr-only">Close confirmation window</span>
+        </button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <form class="modal__form" id="confirmation-form">
+          <button class="modal__button" type="submit">
+            Yes
+            <span class="sr-only">Confirm deletion</span>
+          </button>
+        </form>
       </div>
     </div>
 
